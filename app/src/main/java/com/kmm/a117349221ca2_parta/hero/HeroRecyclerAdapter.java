@@ -13,7 +13,7 @@ import com.kmm.a117349221ca2_parta.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//https://gist.github.com/codinginflow/eec0211b4fab5e5426319389377d71af
 public class HeroRecyclerAdapter extends RecyclerView.Adapter<HeroViewHolder> implements Filterable {
 private List<Hero> heroList;
 private List<Hero> heroListComplete;
