@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.utils;
+package com.kmm.a117349221ca2_parta;
 
 import android.content.Context;
 import android.os.Message;
@@ -20,7 +20,7 @@ https://stackoverflow.com/a/44473762
 */
 public class LoaderManager {
 
-    public static class GetHeroesLoader extends AsyncTaskLoader<Hero> {
+    public static class GetHeroesLoader extends AsyncTaskLoader<ArrayList<Hero>> {
 
 
         public GetHeroesLoader(@NonNull Context context) {
@@ -29,19 +29,19 @@ public class LoaderManager {
         }
         @Nullable
         @Override
-        public Hero loadInBackground() {
-            Hero hero ;
+        public ArrayList<Hero> loadInBackground() {
+           ArrayList<Hero> heroes ;
             try {
-              hero = HeroAdapter.getAllHeroes();
+              heroes = new ArrayList<>(HeroAdapter.getAllHeroes());
                 Message m = new Message();
-                m.obj = hero;
+                m.obj = heroes;
 
                 Log.d("Loader", "TYPE" );
             } catch (Exception e){
-                hero = null;
+                heroes = null;
 
             }
-            return hero;
+            return heroes;
         }
 
 

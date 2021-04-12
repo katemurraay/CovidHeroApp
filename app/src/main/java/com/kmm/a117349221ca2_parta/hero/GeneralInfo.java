@@ -4,16 +4,26 @@ import java.util.ArrayList;
 
 public class GeneralInfo {
 
-    private String error;
+    private boolean error;
     private String message;
     private ArrayList<Hero> heroes;
 
+    public GeneralInfo(boolean error, String message, ArrayList<Hero> heroes) {
+        this.error = error;
+        this.message = message;
+        this.heroes = heroes;
+    }
+    public GeneralInfo() {
+        this.error = false;
+        this.message = "";
+        this.heroes = null;
+    }
     // <editor-fold defaultstate="collapsed" desc="Getters and Setters">
-    public String getError() {
+    public boolean getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(boolean error) {
         this.error = error;
     }
 

@@ -27,15 +27,12 @@ public class HeroHttpHandler {
 
         try {
             URL url = new URL(uri);
-            conn = (HttpURLConnection)url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             InputStream in = conn.getInputStream();
             http_status = conn.getResponseCode();
 
-            if (http_status == 200) {
                 s = streamToString(in); //This is the response
-            } else {
-                s = "bad response";
-            }
+
         } catch (MalformedURLException m) {
             s = "malformed URL exception";
         } catch (IOException e) {
