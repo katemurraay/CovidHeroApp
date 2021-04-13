@@ -2,4 +2,15 @@
     <string name="app_name">117349221CA2_PARTA</string>
 
     <string name="no_wifi">Please connect to the Internet</string>
+
+    <string name="btn_continue">Continue</string>
+    <string name = "btn_back">Back</string>
+    <string name = "btn_delete">Delete</string>
+    <string name = "btn_save">Save</string>
+    <string name ="conn_error">Error Deleting Hero</string>
+    <string name ="delete_hero">Hero Successfully Removed</string>
+
+    <string name ="et_heroname"> Enter Hero Name</string>
+    <string name ="et_realname"> Enter Real Name</string>
+    <string name ="et_team"> Enter Affiliated Team</string>
 </resources>

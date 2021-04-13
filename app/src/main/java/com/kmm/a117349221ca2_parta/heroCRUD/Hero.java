@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.hero;
+package com.kmm.a117349221ca2_parta.heroCRUD;
 
 public class Hero {
 

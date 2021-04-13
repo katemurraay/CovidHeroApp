@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.hero;
+package com.kmm.a117349221ca2_parta.heroCRUD.heroRead;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmm.a117349221ca2_parta.R;
+import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,6 @@
-package com.kmm.a117349221ca2_parta.hero;
+package com.kmm.a117349221ca2_parta.heroCRUD.heroRead;
 
-import android.media.Rating;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 

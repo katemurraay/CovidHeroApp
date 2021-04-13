@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10sp"
+
+    android:background="@drawable/dialog_shape">
+    <ImageView
+        android:contentDescription="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:src="@drawable/ic_superhero"
+        android:tint="@color/view_colour"
+
+        tools:ignore="UseAppTint" />
+
+    <View
+        android:background="@color/view_colour"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_edittext"
+        android:id="@+id/etHeroName"
+        android:layout_marginTop="5sp"
+        android:padding="5sp"
+        android:hint="@string/et_heroname"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_edittext"
+        android:id="@+id/etRealName"
+        android:padding="5sp"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_marginTop="5sp"
+        android:hint="@string/et_realname"
+        android:layout_height="wrap_content"
+        />
+    <EditText
+        android:importantForAutofill="no"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_edittext"
+        android:id="@+id/etTeamAffiliation"
+        android:layout_marginTop="5sp"
+        android:padding="5sp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:hint="@string/et_team"
+        android:layout_height="wrap_content"
+        />
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:numStars="10"
+        android:layout_marginTop="5sp"
+        android:padding="5sp"
+        style="?android:attr/ratingBarStyleSmall"
+        android:id="@+id/rating_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:orientation="horizontal">
+        <Button
+
+            android:layout_height="wrap_content"
+            android:layout_width="120sp"
+
+            android:text="@string/btn_back"
+            android:textColor="@android:color/darker_gray"
+            android:background="@android:color/transparent"
+            android:id="@+id/btnBack"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="200sp"
+
+            android:textColor="@android:color/holo_blue_light"
+            android:background="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_save"
+            android:id="@+id/btnSave"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</LinearLayout>

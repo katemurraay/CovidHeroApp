@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.hero;
+package com.kmm.a117349221ca2_parta.heroCRUD;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+/**
+ * Created by Michael Gleeson on 14/02/2019
+ */
 
 public class HeroHttpHandler {
     private static String streamToString(InputStream in) throws IOException {
@@ -30,8 +34,12 @@ public class HeroHttpHandler {
             conn = (HttpURLConnection) url.openConnection();
             InputStream in = conn.getInputStream();
             http_status = conn.getResponseCode();
+            if (http_status == 200) {
+                s = streamToString(in);
+            } else {
+                s = "bad response";
+            }
 
-                s = streamToString(in); //This is the response
 
         } catch (MalformedURLException m) {
             s = "malformed URL exception";

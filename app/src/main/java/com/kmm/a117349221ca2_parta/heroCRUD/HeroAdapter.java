@@ -1,12 +1,11 @@
-package com.kmm.a117349221ca2_parta.hero;
+package com.kmm.a117349221ca2_parta.heroCRUD;
+
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class HeroAdapter {
     public static final String baseURI = "https://gleeson.io/IS4447/HeroAPI/v1/Api.php?apicall=";
@@ -43,6 +42,7 @@ public class HeroAdapter {
 
     public static final Hero updateHero (Hero hero) throws JsonSyntaxException {
         String heroURI = baseURI + "updatehero&id="+hero.getHeroID();
+        Log.d("UPDATEHERO", String.valueOf(hero.getHeroID()));
         Gson g = new Gson();
         String payload = g.toJson(hero, Hero.class);
         String heroString = HeroHttpHandler.HttpPostExec(heroURI, payload);
