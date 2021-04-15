@@ -1,29 +1,34 @@
 package com.kmm.a117349221ca2_parta.heroCRUD;
 
-public class Hero {
+import com.google.gson.annotations.SerializedName;
+
+public  class Hero {
 
 
 
 
     private int id;
-    private String name;
-    private String realname;
+    @SerializedName("name")
+    private String heroName;
+    @SerializedName("realname")
+    private String realName;
     private int rating;
-    private String teamaffiliation;
+    @SerializedName("teamaffiliation")
+    private String teamAffiliation;
     public Hero(){
         id= 0;
-        name = "";
-        realname = "";
+        heroName = "";
+        realName = "";
         rating =0;
-        teamaffiliation = "";
+        teamAffiliation = "";
     }
 
     public Hero (int id, String heroName, String realName, int rating, String teamAffiliation){
         this.id = id;
-        this.name = heroName;
-        this.realname = realName;
+        this.heroName = heroName;
+        this.realName = realName;
         this.rating = rating;
-        this.teamaffiliation = teamAffiliation;
+        this.teamAffiliation = teamAffiliation;
     }
 
 
@@ -37,18 +42,18 @@ public class Hero {
     }
 
     public String getHeroName() {
-        return name;
+        return heroName;
     }
 
     public void setHeroName(String heroName) {
-        this.name = heroName;
+        this.heroName = heroName;
     }
     public String getRealName() {
-        return realname;
+        return realName;
     }
 
     public void setRealName(String realName) {
-        this.realname = realName;
+        this.realName = realName;
     }
 
     public int getRating() {
@@ -60,11 +65,11 @@ public class Hero {
     }
 
     public String getTeamAffiliation() {
-        return teamaffiliation;
+        return teamAffiliation;
     }
 
     public void setTeamAffiliation(String teamAffiliation) {
-        this.teamaffiliation = teamAffiliation;
+        this.teamAffiliation = teamAffiliation;
     }
 
     // </editor-fold>

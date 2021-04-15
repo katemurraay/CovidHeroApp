@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -18,9 +19,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.kmm.a117349221ca2_parta.R;
+import com.kmm.a117349221ca2_parta.covid.CovidActivity;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.heroDelete.DeleteSwipe;
 import com.kmm.a117349221ca2_parta.heroCRUD.heroUpdate.EditSwipe;
@@ -37,12 +40,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     RecyclerView recyclerView;
     DeleteSwipe deleteSwipe;
     EditSwipe editSwipe;
+    Button btnCOVID;
 
     private HeroRecyclerAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnCOVID = findViewById(R.id.btnCovidActivity);
+        btnCOVID.setOnClickListener((view) ->{
+            Intent intent = new Intent(this, CovidActivity.class);
+            startActivity(intent);
+        });
         recyclerView = findViewById(R.id.recycler_view);
         receiver =new NetworkReceiver();
         if(checkInternet(this)){

@@ -8,8 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
+import com.kmm.a117349221ca2_parta.covid.Covid;
+import com.kmm.a117349221ca2_parta.covid.CovidAdapter;
+import com.kmm.a117349221ca2_parta.heroCRUD.GeneralInfo;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.HeroAdapter;
+import com.kmm.a117349221ca2_parta.utils.IConstants;
 
 import java.util.ArrayList;
 
@@ -32,10 +36,15 @@ public class LoaderManager {
         public ArrayList<Hero> loadInBackground() {
            ArrayList<Hero> heroes ;
             try {
-              heroes = new ArrayList<>(HeroAdapter.getAllHeroes());
-                Message m = new Message();
-                m.obj = heroes;
-
+                GeneralInfo generalInfo = HeroAdapter.getAllHeroes();
+                if(!generalInfo.getError()) {
+                    heroes = new ArrayList<>(generalInfo.getHeroes());
+                    IConstants.generalInfo = generalInfo;
+                    Message m = new Message();
+                    m.obj = heroes;
+                } else{
+                    heroes =null;
+                }
                 Log.d("Loader", "Get_Heroes_Loader" );
             } catch (Exception e){
                 heroes = null;
@@ -64,9 +73,17 @@ int heroID;
         @Nullable
         @Override
         public Hero loadInBackground() {
-        Hero hero;
+        Hero hero = null;
             try {
-               hero = HeroAdapter.deleteHero(heroID);
+               GeneralInfo generalInfo = HeroAdapter.deleteHero(heroID);
+                if(!generalInfo.getError()){
+                ArrayList<Hero> heros = new ArrayList<>(generalInfo.getHeroes());
+                for (Hero example : heros){
+                    if (example.getHeroID() == heroID){
+                        hero = example;
+                    }
+                }
+                }
                 Message m = new Message();
                 m.obj = hero;
 
@@ -89,24 +106,33 @@ int heroID;
 
     public static class UpdateHeroLoader extends AsyncTaskLoader<Hero> {
        Hero hero;
+       GeneralInfo generalInfo;
+        Hero updatedHero;
 
-        public UpdateHeroLoader(@NonNull Context context, Hero hero) {
+        public UpdateHeroLoader(@NonNull Context context, Hero hero, GeneralInfo generalInfo) {
             super(context);
             this.hero= hero;
+            this.generalInfo = generalInfo;
 
         }
         @Nullable
         @Override
         public Hero loadInBackground() {
-            Hero updatedHero;
-            try {
-                updatedHero = HeroAdapter.updateHero(hero);
+
+           try{
+               generalInfo.setHeroes(IConstants.HERO_LIST);
+               generalInfo = HeroAdapter.updateHero(hero);
+               if(!generalInfo.getError()){
+                updatedHero = hero;
+               } else{
+                   updatedHero = null;
+               }
                 Message m = new Message();
                 m.obj = updatedHero;
 
                 Log.d("Loader", "Update_Hero_Loader" );
             } catch (Exception e){
-                updatedHero = null;
+              updatedHero = null;
 
             }
             return  updatedHero;
@@ -118,6 +144,32 @@ int heroID;
         protected void onStartLoading() {
             forceLoad();
             Log.d("Update_Hero_Loader", "onStartCalled");
+        } //END
+    }
+
+
+    public static class GetCOVIDLoader extends AsyncTaskLoader<Covid> {
+    public GetCOVIDLoader(Context context){
+    super(context);
+
+    }
+
+        @Nullable
+        @Override
+        public Covid loadInBackground() {
+
+       ArrayList<Covid> covidArrayList= CovidAdapter.getIrishCases();
+       int size = covidArrayList.size()-1;
+       Covid covid = covidArrayList.get(size);
+       IConstants.COVID_LIST = covidArrayList;
+
+       return covid;
+        }
+
+        @Override
+        protected void onStartLoading() {
+            forceLoad();
+            Log.d("GET_COVID_LOADER", "onStartCalled");
         } //END
     }
 }
