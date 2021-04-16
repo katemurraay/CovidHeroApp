@@ -7,9 +7,11 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.kmm.a117349221ca2_parta.utils.ShowToast;
 public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Covid>{
    TextView tvResult, tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
    NetworkReceiver receiver;
+   Button btnLineChart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +35,12 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         tvNumDeaths = findViewById(R.id.tvNoDeathCases);
         tvNumConfirmed = findViewById(R.id.tvNoConfirmedCases);
         tvNumRecovered = findViewById(R.id.tvNoRecoveredCases);
+        btnLineChart = findViewById(R.id.btnLineChart);
+        btnLineChart.setOnClickListener((v)->{
+            Intent intent = new Intent(CovidActivity.this, LineChartActivity.class);
+            startActivity(intent);
 
+        });
         receiver = new NetworkReceiver();
         if(checkInternet(this)){
             androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.GETCOVIDLOADERID, null, this);
@@ -62,6 +70,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
             tvNumActive.setText(String.valueOf(data.getActive()));
             tvNumRecovered.setText(String.valueOf(data.getRecovered()));
             tvNumConfirmed.setText(String.valueOf(data.getConfirmed()));
+
         }
     }
 

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.117349221CA2_PARTA">
-        <activity android:name=".covid.CovidActivity"></activity>
+        <activity android:name=".covid.LineChartActivity"></activity>
+        <activity android:name=".covid.CovidActivity" />
         <activity android:name=".heroCRUD.heroRead.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

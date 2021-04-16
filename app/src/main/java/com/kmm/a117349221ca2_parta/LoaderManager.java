@@ -161,7 +161,7 @@ int heroID;
        ArrayList<Covid> covidArrayList= CovidAdapter.getIrishCases();
        int size = covidArrayList.size()-1;
        Covid covid = covidArrayList.get(size);
-       IConstants.COVID_LIST = covidArrayList;
+       IConstants.COVID_LIST = new ArrayList<>(covidArrayList);
 
        return covid;
         }

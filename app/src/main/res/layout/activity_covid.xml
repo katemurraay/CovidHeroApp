@@ -14,13 +14,20 @@
     android:padding="5sp"
     android:id="@+id/tvResult"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnLineChart"
+        android:padding="10sp"
+        android:layout_below="@+id/tvResult"/>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
         android:layout_marginTop="25sp"
         android:id="@+id/cvActive"
-        android:layout_below="@id/tvResult">
+        android:layout_below="@id/btnLineChart">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

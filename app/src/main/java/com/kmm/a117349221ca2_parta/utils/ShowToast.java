@@ -17,6 +17,7 @@ import com.kmm.a117349221ca2_parta.R;
 
 public class ShowToast {
 
+    @SuppressLint("ResourceAsColor")
     public Toast makeImageToast(Context context, int imageResId, int stringId, int length) {
             /* Code below is based on:
             StakeOverflow Answer to Question: "Custom toast on Android: a simple example",
@@ -37,6 +38,7 @@ public class ShowToast {
 
         TextView text =  view.findViewById(R.id.tvToast);
         text.setText(stringId);
+
 
 
         ImageView imageView = view.findViewById(R.id.ivToast);
