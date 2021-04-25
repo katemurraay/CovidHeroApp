@@ -15,7 +15,13 @@ import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.HeroAdapter;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /* Code below is based on :
  StackOverflow Answer to Question: "AsyncTaskLoader basic example. (Android)",
@@ -159,11 +165,23 @@ int heroID;
         public Covid loadInBackground() {
 
        ArrayList<Covid> covidArrayList= CovidAdapter.getIrishCases();
-       int size = covidArrayList.size()-1;
-       Covid covid = covidArrayList.get(size);
-       IConstants.COVID_LIST = new ArrayList<>(covidArrayList);
+       Covid currentCases = new Covid();
+       for (Covid covid: covidArrayList){
+              Date c = (Date) Calendar.getInstance().getTime();
+              SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+              String formattedDate = formatter.format(c);
+              Date activeDate= covid.getDate();
+              String formatDate2 = formatter.format(activeDate);
+              if(formattedDate.equals(formatDate2)){
+                  currentCases = covid;
 
-       return covid;
+              }
+
+       }
+
+       IConstants.COVID_LIST = new ArrayList<>(covidArrayList);
+       return currentCases;
+
         }
 
         @Override
