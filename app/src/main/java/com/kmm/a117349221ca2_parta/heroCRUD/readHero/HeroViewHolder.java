@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.heroRead;
+package com.kmm.a117349221ca2_parta.heroCRUD.readHero;
 
 import android.view.View;
 import android.widget.RatingBar;

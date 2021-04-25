@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.heroUpdate;
+package com.kmm.a117349221ca2_parta.heroCRUD.updateHero;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -23,7 +23,7 @@ import androidx.loader.content.Loader;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 
-import com.kmm.a117349221ca2_parta.heroCRUD.heroRead.HeroRecyclerAdapter;
+import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
 

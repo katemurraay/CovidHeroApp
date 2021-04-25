@@ -2,6 +2,7 @@ package com.kmm.a117349221ca2_parta.utils;
 
 import android.telephony.emergency.EmergencyNumber;
 
+import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.covid.Covid;
 import com.kmm.a117349221ca2_parta.heroCRUD.GeneralInfo;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
@@ -18,6 +19,7 @@ public class IConstants {
     public static final int UPDATEHEROLOADERID = 3;
     public static final int GETCOVIDLOADERID = 4;
     public static volatile GeneralInfo generalInfo;
+
 
 
 

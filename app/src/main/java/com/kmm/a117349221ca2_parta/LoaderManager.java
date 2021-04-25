@@ -83,15 +83,14 @@ int heroID;
             try {
                GeneralInfo generalInfo = HeroAdapter.deleteHero(heroID);
                 if(!generalInfo.getError()){
-                ArrayList<Hero> heros = new ArrayList<>(generalInfo.getHeroes());
+                ArrayList<Hero> heros = new ArrayList<>(IConstants.HERO_LIST);
                 for (Hero example : heros){
                     if (example.getHeroID() == heroID){
                         hero = example;
                     }
                 }
                 }
-                Message m = new Message();
-                m.obj = hero;
+
 
                 Log.d("Loader", "Delete_Hero_Loader" );
             } catch (Exception e){
@@ -155,8 +154,10 @@ int heroID;
 
 
     public static class GetCOVIDLoader extends AsyncTaskLoader<Covid> {
-    public GetCOVIDLoader(Context context){
+        String country;
+    public GetCOVIDLoader(Context context, String country){
     super(context);
+    this.country = country;
 
     }
 
@@ -164,7 +165,7 @@ int heroID;
         @Override
         public Covid loadInBackground() {
 
-       ArrayList<Covid> covidArrayList= CovidAdapter.getIrishCases();
+       ArrayList<Covid> covidArrayList= CovidAdapter.getCovidCases(country);
        Covid currentCases = new Covid();
        for (Covid covid: covidArrayList){
               Date c = (Date) Calendar.getInstance().getTime();

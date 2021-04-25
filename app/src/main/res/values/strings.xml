@@ -16,9 +16,60 @@
 
 
     <!-- Covid Cases-->
+    <string name="sp_Province">Province</string>
     <string name="tv_deaths">Deaths</string>
+    <string name = "tv_result">COVID Breakdown for: </string>
     <string name="tv_active">Active Cases</string>
     <string name="tv_recovered">Recovered</string>
     <string name="tv_confirmed">Confirmed Cases</string>
+<string-array name="european_countries">
+    <item>Albania</item>
+    <item>Andorra</item>
+    <item>Armenia</item>
+    <item>Austria</item>
+    <item>Azerbaijan</item>
+    <item>Belarus</item>
+    <item>Belgium</item>
+    <item>Bulgaria</item>
+    <item>Croatia</item>
+    <item>Cyprus</item>
+    <item>Czechia</item>
+    <item>Denmark</item>
+    <item>Estonia</item>
+    <item>Finland</item>
+    <item>France</item>
+    <item>Georgia</item>
+    <item>Germany</item>
+    <item>Greece</item>
+    <item>Hungary</item>
+    <item>Iceland</item>
+    <item>Ireland</item>
+    <item>Italy</item>
+    <item>Kazakhstan</item>
+    <item>Kosovo</item>
+    <item>Latvia</item>
+    <item>Liechtenstein</item>
+    <item>Lithuania</item>
+    <item>Luxembourg</item>
+    <item>Malta</item>
+    <item>Moldova</item>
+    <item>Monaco</item>
+    <item>Montenegro</item>
+    <item>Netherlands</item>
+     <item>Norway</item>
+    <item>Poland</item>
+    <item>Portugal</item>
+    <item>Romania</item>
+    <item>Russia</item>
+    <item>Serbia</item>
+    <item>Slovakia</item>
+    <item>Slovenia</item>
+    <item>Spain</item>
+    <item>Sweden</item>
+    <item>Switzerland</item>
+<item>Turkey</item>
+<item>Ukraine</item>
+<item>United Kingdom</item>
 
+</string-array>
 </resources>

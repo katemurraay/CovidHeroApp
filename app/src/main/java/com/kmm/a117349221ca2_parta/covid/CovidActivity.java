@@ -13,8 +13,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,16 +30,22 @@ import com.kmm.a117349221ca2_parta.utils.NetworkReceiver;
 import com.kmm.a117349221ca2_parta.utils.NetworkService;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
-public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Covid>, View.OnClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Covid>, View.OnClickListener, AdapterView.OnItemSelectedListener {
    TextView tvResult, tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
    NetworkReceiver receiver;
-
+   ScrollView scrollView;
+    Spinner spCountry, spProvince;
    CardView cvConfirmed, cvActive, cvRecovered, cvDeaths;
+   String strCountry;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid);
         tvResult = findViewById(R.id.tvResult);
+        scrollView = findViewById(R.id.scrollView);
         tvNumActive = findViewById(R.id.tvNoActiveCases);
         tvNumDeaths = findViewById(R.id.tvNoDeathCases);
         tvNumConfirmed = findViewById(R.id.tvNoConfirmedCases);
@@ -43,18 +54,18 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         cvConfirmed = findViewById(R.id.cvConfirmed);
         cvRecovered = findViewById(R.id.cvRecovered);
         cvDeaths = findViewById(R.id.cvDeaths);
-
+        spCountry = findViewById(R.id.spCountry);
+        spProvince = findViewById(R.id.spProvince);
 
         receiver = new NetworkReceiver();
-        if(checkInternet(this)){
-            androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.GETCOVIDLOADERID, null, this);
 
+        String[] countries;
+        countries = getResources().getStringArray(R.array.european_countries);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
+        spCountry.setAdapter(arrayAdapter);
+        spCountry.setSelection(20);
+        spCountry.setOnItemSelectedListener(this);
 
-        } else{
-            ShowToast toast = new ShowToast();
-            toast.makeImageToast(this, R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
-
-        }
 
         cvDeaths.setOnClickListener(this);
         cvActive.setOnClickListener(this);
@@ -66,15 +77,16 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @NonNull
     @Override
-    public Loader<Covid> onCreateLoader(int id, @Nullable Bundle args) {
-        return new com.kmm.a117349221ca2_parta.LoaderManager.GetCOVIDLoader(this);
+    public Loader<Covid> onCreateLoader(int id,  @Nullable Bundle args) {
+
+        scrollView.setVisibility(View.GONE);
+        return new com.kmm.a117349221ca2_parta.LoaderManager.GetCOVIDLoader(this, strCountry);
     }
 
     @Override
     public void onLoadFinished(@NonNull androidx.loader.content.Loader<Covid> loader, Covid data) {
         if(data!=null){
-            String country = "COVID Cases in " + data.getCountry();
-            tvResult.setText( country);
+            scrollView.setVisibility(View.VISIBLE);
             tvNumDeaths.setText(String.valueOf(data.getDeaths()));
             tvNumActive.setText(String.valueOf(data.getActive()));
             tvNumRecovered.setText(String.valueOf(data.getRecovered()));
@@ -85,7 +97,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoaderReset(@NonNull Loader<Covid> loader) {
-        new com.kmm.a117349221ca2_parta.LoaderManager.GetCOVIDLoader(this);
+        new com.kmm.a117349221ca2_parta.LoaderManager.GetCOVIDLoader(this, strCountry);
     }
 
     boolean checkInternet(Context context) {
@@ -133,5 +145,35 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
 
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String item = parent.getItemAtPosition(position).toString();
+        if(checkInternet(this)){
+            if(strCountry != null) {
+                strCountry = null;
+                strCountry = item.toLowerCase();
+                Log.d("StrCountry", strCountry);
+                androidx.loader.app.LoaderManager.getInstance(this).restartLoader(IConstants.GETCOVIDLOADERID, null, this);
+
+            } else{
+                strCountry = item.toLowerCase();
+                Log.d("StrCountry", strCountry);
+                androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.GETCOVIDLOADERID, null, this);
+
+            }
+
+        } else{
+            ShowToast toast = new ShowToast();
+            toast.makeImageToast(this, R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
+
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

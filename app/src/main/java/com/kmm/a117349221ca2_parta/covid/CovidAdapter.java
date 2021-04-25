@@ -22,8 +22,8 @@ public class CovidAdapter {
     }
 
 
-    public static final ArrayList<Covid> getIrishCases() throws JsonSyntaxException {
-        String covidURI = baseURI + "/ireland" ;
+    public static ArrayList<Covid> getCovidCases(String country) throws JsonSyntaxException {
+        String covidURI = baseURI + "/" + country ;
         String covidString = HttpHandler.HttpGetExec(covidURI);
 
         ArrayList<String> stringArrayList = new ArrayList<>();

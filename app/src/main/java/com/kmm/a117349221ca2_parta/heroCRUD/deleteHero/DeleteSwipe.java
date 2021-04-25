@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.heroDelete;
+package com.kmm.a117349221ca2_parta.heroCRUD.deleteHero;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmm.a117349221ca2_parta.R;
-import com.kmm.a117349221ca2_parta.heroCRUD.heroRead.HeroRecyclerAdapter;
+import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 
 public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
     private final Drawable icon;

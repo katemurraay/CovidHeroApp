@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.heroRead;
+package com.kmm.a117349221ca2_parta.heroCRUD.readHero;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +25,8 @@ import android.widget.Toast;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.covid.CovidActivity;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
-import com.kmm.a117349221ca2_parta.heroCRUD.heroDelete.DeleteSwipe;
-import com.kmm.a117349221ca2_parta.heroCRUD.heroUpdate.EditSwipe;
+import com.kmm.a117349221ca2_parta.heroCRUD.deleteHero.DeleteSwipe;
+import com.kmm.a117349221ca2_parta.heroCRUD.updateHero.EditSwipe;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.NetworkReceiver;
 import com.kmm.a117349221ca2_parta.utils.NetworkService;

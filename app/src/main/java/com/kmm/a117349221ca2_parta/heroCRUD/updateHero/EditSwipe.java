@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.heroUpdate;
+package com.kmm.a117349221ca2_parta.heroCRUD.updateHero;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmm.a117349221ca2_parta.R;
 
-import com.kmm.a117349221ca2_parta.heroCRUD.heroRead.HeroRecyclerAdapter;
+import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 
 public class EditSwipe extends ItemTouchHelper.SimpleCallback {
         private final Drawable icon;

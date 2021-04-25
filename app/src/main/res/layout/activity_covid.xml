@@ -3,31 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".covid.CovidActivity">
-<RelativeLayout
+
+<LinearLayout
     android:background="@android:color/holo_blue_light"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="wrap_content">
-
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAlignment="center"
-    android:textColor="@android:color/white"
-    android:padding="5sp"
-    android:id="@+id/tvResult"/>
+    android:id="@+id/tvResult"
+    android:text="@string/tv_result"
+    android:layout_marginTop="15sp"
+    android:textColor="@android:color/white"/>
+<Spinner
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="center"
+    android:background="@android:color/white"
+    android:padding="20sp"
+    android:id="@+id/spCountry"/>
+<Spinner
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="20sp"
+    android:visibility="gone"
+    android:layout_marginTop="15sp"
+    android:prompt="@string/sp_Province"
+    android:id="@+id/spProvince"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        tools:context=".covid.CovidActivity">
+        <LinearLayout
 
-
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
         android:layout_marginTop="25sp"
         android:id="@+id/cvActive"
-        android:layout_below="@id/tvResult">
+      >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -79,7 +101,7 @@
         android:padding="10sp"
         android:layout_marginTop="25sp"
         android:id="@+id/cvConfirmed"
-        android:layout_below="@id/cvActive">
+      >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -177,8 +199,7 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         android:layout_marginTop="25sp"
-        android:id="@+id/cvDeaths"
-        android:layout_below="@id/cvRecovered">
+        android:id="@+id/cvDeaths">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -221,7 +242,9 @@
         </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-</RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
+
 </FrameLayout>
