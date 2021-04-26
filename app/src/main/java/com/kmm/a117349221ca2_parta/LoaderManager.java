@@ -153,7 +153,7 @@ int heroID;
     }
 
 
-    public static class GetCOVIDLoader extends AsyncTaskLoader<Covid> {
+    public static class GetCOVIDLoader extends AsyncTaskLoader<ArrayList<Covid>> {
         String country;
     public GetCOVIDLoader(Context context, String country){
     super(context);
@@ -163,10 +163,10 @@ int heroID;
 
         @Nullable
         @Override
-        public Covid loadInBackground() {
+        public ArrayList<Covid> loadInBackground() {
 
        ArrayList<Covid> covidArrayList= CovidAdapter.getCovidCases(country);
-       Covid currentCases = new Covid();
+      ArrayList<Covid> currentCases = new ArrayList<>();
        for (Covid covid: covidArrayList){
               Date c = (Date) Calendar.getInstance().getTime();
               SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -174,7 +174,7 @@ int heroID;
               Date activeDate= covid.getDate();
               String formatDate2 = formatter.format(activeDate);
               if(formattedDate.equals(formatDate2)){
-                  currentCases = covid;
+                  currentCases.add(covid);
 
               }
 
