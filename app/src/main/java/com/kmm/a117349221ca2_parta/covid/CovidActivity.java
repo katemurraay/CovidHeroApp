@@ -37,6 +37,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
    TextView tvResult, tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
    NetworkReceiver receiver;
    ScrollView scrollView;
+   String strProvince;
     Spinner spCountry, spProvince;
    CardView cvConfirmed, cvActive, cvRecovered, cvDeaths;
    String strCountry;
@@ -59,7 +60,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         spProvince = findViewById(R.id.spProvince);
         currentCases = new ArrayList<>();
         receiver = new NetworkReceiver();
-
+strProvince = "";
         String[] countries;
         countries = getResources().getStringArray(R.array.european_countries);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
@@ -86,7 +87,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Covid>> loader, ArrayList<Covid> data) {
         if(data!=null){
-            currentCases.addAll(data);
+            currentCases= new ArrayList<>(data);
             scrollView.setVisibility(View.VISIBLE);
             ArrayList<String> provinces = new ArrayList<>();
             for(Covid covid: data){
@@ -102,9 +103,10 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
             }
             if(provinces!= null) {
                 spProvince.setVisibility(View.VISIBLE);
+
                 ArrayAdapter<String> pvArraryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provinces);
                 spProvince.setAdapter(pvArraryAdapter);
-                spProvince.setSelection(0);
+                 spProvince.setSelection(0);
             } else{
                 spProvince.setVisibility(View.GONE);
             }
@@ -149,6 +151,13 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(CovidActivity.this, LineChartActivity.class);
+        if(spProvince.getVisibility() == View.VISIBLE){
+            strProvince = spProvince.getSelectedItem().toString();
+
+        } else{
+            strProvince =null;
+        }
+        intent.putExtra("PROVINCE", strProvince);
         switch (v.getId()) {
 
             case R.id.cvActive:
@@ -165,6 +174,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                 break;
             case R.id.cvRecovered:
                 intent.putExtra("CHART", "Recovered");
+
                 startActivity(intent);
                 break;
 
@@ -196,6 +206,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
         }
         } else if (parent.getId() == R.id.spProvince){
+
             tvNumDeaths.setText(String.valueOf(currentCases.get(position).getDeaths()));
             tvNumActive.setText(String.valueOf(currentCases.get(position).getActive()));
             tvNumRecovered.setText(String.valueOf(currentCases.get(position).getRecovered()));
