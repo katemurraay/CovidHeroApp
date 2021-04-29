@@ -166,7 +166,9 @@ int heroID;
         public ArrayList<Covid> loadInBackground() {
 
        ArrayList<Covid> covidArrayList= CovidAdapter.getCovidCases(country);
+       IConstants.COVID_LIST = new ArrayList<>(covidArrayList);
       ArrayList<Covid> currentCases = new ArrayList<>();
+
        for (Covid covid: covidArrayList){
               Date c = (Date) Calendar.getInstance().getTime();
               SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -180,7 +182,7 @@ int heroID;
 
        }
 
-       IConstants.COVID_LIST = new ArrayList<>(covidArrayList);
+
        return currentCases;
 
         }

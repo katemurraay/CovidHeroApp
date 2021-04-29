@@ -60,7 +60,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         spProvince = findViewById(R.id.spProvince);
         currentCases = new ArrayList<>();
         receiver = new NetworkReceiver();
-strProvince = "";
+        strProvince = "";
         String[] countries;
         countries = getResources().getStringArray(R.array.european_countries);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);

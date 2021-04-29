@@ -14,7 +14,10 @@
     <string name="et_realname"> Enter Real Name</string>
     <string name="et_team"> Enter Affiliated Team</string>
 
-
+<string-array name="days">
+    <item>5 days</item>
+    <item>10 days</item>
+</string-array>
     <!-- Covid Cases-->
     <string name="sp_Province">Province</string>
     <string name="tv_deaths">Deaths</string>
