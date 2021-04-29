@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10sp"
-
     android:background="@drawable/dialog_shape">
     <ImageView
         android:contentDescription="@string/app_name"
@@ -62,23 +60,24 @@
         android:layout_marginTop="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+       android:layout_gravity="center"
         android:numStars="5"
         android:stepSize="1"
 
         style="@style/CustomRatingBarStyle"
         android:id="@+id/rating_bar"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
         android:padding="10sp"
         android:orientation="horizontal">
         <Button
 
             android:layout_height="wrap_content"
             android:layout_width="120sp"
-
             android:text="@string/btn_back"
             android:textColor="@android:color/darker_gray"
             android:background="@android:color/transparent"
@@ -87,12 +86,11 @@
 
         <Button
             android:layout_width="200sp"
-
             android:textColor="@android:color/holo_blue_light"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_save"
-            android:id="@+id/btnSave"
+            android:text="@string/btn_add"
+            android:id="@+id/btnAdd"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 </LinearLayout>

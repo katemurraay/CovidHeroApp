@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmm.a117349221ca2_parta.R;
+import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
+
+import java.util.ArrayList;
 
 public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
     private final Drawable icon;
@@ -22,13 +25,15 @@ public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
     private final Context context;
     private final HeroRecyclerAdapter adapter;
     private final FragmentActivity activity;
+    ArrayList<Hero> heroes;
 
 
-    public DeleteSwipe(FragmentActivity activity, Context context, HeroRecyclerAdapter adapter) {
+    public DeleteSwipe(FragmentActivity activity, Context context, HeroRecyclerAdapter adapter, ArrayList<Hero> heroes) {
         super(0, ItemTouchHelper.RIGHT);
         this.context = context;
         this.activity = activity;
         this.adapter = adapter;
+        this.heroes = heroes;
         icon = ContextCompat.getDrawable(context, R.drawable.ic_delete_sweep);
         background = new ColorDrawable(Color.RED);
     }
@@ -42,7 +47,7 @@ public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
-        DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(context, position, adapter, "Delete Hero");
+        DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(context, position, adapter, "Delete Hero", heroes);
         deleteDialogFragment.show(activity.getSupportFragmentManager(), "123");
     }
     /*

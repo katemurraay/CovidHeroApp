@@ -83,7 +83,7 @@ int heroID;
             try {
                GeneralInfo generalInfo = HeroAdapter.deleteHero(heroID);
                 if(!generalInfo.getError()){
-                ArrayList<Hero> heros = new ArrayList<>(IConstants.HERO_LIST);
+                ArrayList<Hero> heros = new ArrayList<>(IConstants.generalInfo.getHeroes());
                 for (Hero example : heros){
                     if (example.getHeroID() == heroID){
                         hero = example;
@@ -111,13 +111,13 @@ int heroID;
 
     public static class UpdateHeroLoader extends AsyncTaskLoader<Hero> {
        Hero hero;
-       GeneralInfo generalInfo;
+
         Hero updatedHero;
 
-        public UpdateHeroLoader(@NonNull Context context, Hero hero, GeneralInfo generalInfo) {
+        public UpdateHeroLoader(@NonNull Context context, Hero hero) {
             super(context);
             this.hero= hero;
-            this.generalInfo = generalInfo;
+
 
         }
         @Nullable
@@ -125,8 +125,8 @@ int heroID;
         public Hero loadInBackground() {
 
            try{
-               generalInfo.setHeroes(IConstants.HERO_LIST);
-               generalInfo = HeroAdapter.updateHero(hero);
+
+               GeneralInfo generalInfo = HeroAdapter.updateHero(hero);
                if(!generalInfo.getError()){
                 updatedHero = hero;
                } else{
@@ -149,9 +149,52 @@ int heroID;
         protected void onStartLoading() {
             forceLoad();
             Log.d("Update_Hero_Loader", "onStartCalled");
-        } //END
+        }
     }
+    public static class CreateHeroLoader extends AsyncTaskLoader<Hero> {
+        Hero hero;
 
+        Hero addedHero;
+
+        public CreateHeroLoader(@NonNull Context context, Hero hero) {
+            super(context);
+            this.hero= hero;
+
+
+        }
+        @Nullable
+        @Override
+        public Hero loadInBackground() {
+
+            try{
+
+                GeneralInfo generalInfo = HeroAdapter.createHero(hero);
+                if(!generalInfo.getError()){
+                    addedHero = hero;
+                    IConstants.generalInfo.setHeroes(generalInfo.getHeroes());
+
+                } else{
+                    addedHero = null;
+                }
+                Message m = new Message();
+                m.obj = addedHero;
+
+                Log.d("Loader", "Create_Hero_Loader" );
+            } catch (Exception e){
+                addedHero = null;
+
+            }
+            return  addedHero;
+        }
+
+
+
+        @Override
+        protected void onStartLoading() {
+            forceLoad();
+            Log.d("Create_Hero_Loader", "onStartCalled");
+        }
+    }
 
     public static class GetCOVIDLoader extends AsyncTaskLoader<ArrayList<Covid>> {
         String country;

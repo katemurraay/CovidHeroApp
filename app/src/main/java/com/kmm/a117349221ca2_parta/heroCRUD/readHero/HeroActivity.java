@@ -3,28 +3,32 @@ package com.kmm.a117349221ca2_parta.heroCRUD.readHero;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.inputmethod.EditorInfo;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.covid.CovidActivity;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
+import com.kmm.a117349221ca2_parta.heroCRUD.createHero.CreateDialogFragment;
 import com.kmm.a117349221ca2_parta.heroCRUD.deleteHero.DeleteSwipe;
 import com.kmm.a117349221ca2_parta.heroCRUD.updateHero.EditSwipe;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
@@ -34,20 +38,62 @@ import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Hero>> {
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
+
+import static com.kmm.a117349221ca2_parta.utils.IConstants.ID_ADD;
+import static com.kmm.a117349221ca2_parta.utils.IConstants.ID_HOME;
+import static com.kmm.a117349221ca2_parta.utils.IConstants.ID_COVID;
+
+
+public class HeroActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Hero>>, View.OnClickListener {
     NetworkReceiver receiver;
-    SearchView searchView;
+
     RecyclerView recyclerView;
     DeleteSwipe deleteSwipe;
     EditSwipe editSwipe;
-    Button btnCOVID;
-
+    EditText etSearch;
+    Button btnCOVID, btnAdd;
+    ArrayList<Hero> heroes;
     private HeroRecyclerAdapter adapter;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_hero);
         btnCOVID = findViewById(R.id.btnCovidActivity);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(this);
+        ChipNavigationBar bottom_navigation = findViewById(R.id.bottom_nav);
+        bottom_navigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public void onItemSelected(int i) {
+               try{
+                switch (i) {
+
+                    case R.id.home:
+                        break;
+
+                    case R.id.covid:
+                        startActivity(new Intent(getApplicationContext(), CovidActivity.class));
+                        finish();
+                        break;
+
+                }
+            } catch (Exception error) {
+                ShowToast toast = new ShowToast();
+                toast.makeImageToast(getApplicationContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
+
+            }}
+
+            });
+        bottom_navigation.setItemSelected(R.id.home, true);
+
+        etSearch = findViewById(R.id.etSearch);
         btnCOVID.setOnClickListener((view) ->{
             Intent intent = new Intent(this, CovidActivity.class);
             startActivity(intent);
@@ -66,17 +112,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) searchItem.getActionView();
-
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        return true;
-    }
 
     @NonNull
     @Override
@@ -87,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Hero>> loader, ArrayList<Hero> data) {
         if(data != null){
-        IConstants.HERO_LIST = new ArrayList<>(data);
-        adapter = new HeroRecyclerAdapter(IConstants.HERO_LIST);
+      heroes = new ArrayList<>(IConstants.generalInfo.getHeroes());
+        adapter = new HeroRecyclerAdapter(heroes);
         setUpRecyclerView();
         }
     }
@@ -99,25 +135,32 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        deleteSwipe = new DeleteSwipe(this, this, adapter);
-        editSwipe = new EditSwipe(this, this, adapter);
+        deleteSwipe = new DeleteSwipe(this, this, adapter, heroes);
+        editSwipe = new EditSwipe(this, this, adapter, heroes);
         new ItemTouchHelper(deleteSwipe).attachToRecyclerView(recyclerView);
         new ItemTouchHelper(editSwipe).attachToRecyclerView(recyclerView);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+recyclerView.setOnClickListener(this);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        //https://gist.github.com/codinginflow/ea0d9aeb791fb2eac190befcec448909
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                adapter.getFilter().filter(s.toString());
+
             }
         });
+
     }
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Hero>> loader) {
@@ -145,4 +188,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.btnAdd){
+            CreateDialogFragment createDialogFragment = CreateDialogFragment.newInstance(this, adapter, "CREATE Hero", heroes);
+            createDialogFragment.show(getSupportFragmentManager(), "123");
+        } else{
+            int position = recyclerView.getChildAdapterPosition(v);
+            ViewDialogFragment viewDialogFragment = ViewDialogFragment.newInstance(this, position, adapter, "View Hero", heroes);
+            viewDialogFragment.show(getSupportFragmentManager(), "123");
+        }
+    }
 }

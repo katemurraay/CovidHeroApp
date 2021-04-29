@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="error_colour">#ff0000</color>
     <color name="view_colour">#b3b3b3</color>
+    <color name ="thumb_filled">#ffcc00</color>
 </resources>

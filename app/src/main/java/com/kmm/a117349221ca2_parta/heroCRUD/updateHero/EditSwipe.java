@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.kmm.a117349221ca2_parta.R;
 
+import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
+
+import java.util.ArrayList;
 
 public class EditSwipe extends ItemTouchHelper.SimpleCallback {
         private final Drawable icon;
@@ -23,13 +26,15 @@ public class EditSwipe extends ItemTouchHelper.SimpleCallback {
         private final Context context;
         private final HeroRecyclerAdapter adapter;
         private final FragmentActivity activity;
+        ArrayList<Hero> heroes;
 
 
-        public EditSwipe(FragmentActivity activity, Context context, HeroRecyclerAdapter adapter) {
+        public EditSwipe(FragmentActivity activity, Context context, HeroRecyclerAdapter adapter, ArrayList<Hero>heroes) {
             super(0, ItemTouchHelper.LEFT);
             this.context = context;
             this.activity = activity;
             this.adapter = adapter;
+            this.heroes = heroes;
             icon = ContextCompat.getDrawable(context, R.drawable.ic_edit);
             background = new ColorDrawable(Color.GRAY);
         }
@@ -43,7 +48,7 @@ public class EditSwipe extends ItemTouchHelper.SimpleCallback {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(context, position, adapter, "Edit Hero");
+            EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(context, position, adapter, "Edit Hero", heroes);
             editDialogFragment.show(activity.getSupportFragmentManager(), "1234");
         }
         /*

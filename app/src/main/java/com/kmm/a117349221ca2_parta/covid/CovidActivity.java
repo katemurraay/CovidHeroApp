@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +24,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
+import com.kmm.a117349221ca2_parta.heroCRUD.createHero.CreateDialogFragment;
+import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroActivity;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.NetworkReceiver;
 import com.kmm.a117349221ca2_parta.utils.NetworkService;
@@ -73,7 +77,32 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         cvActive.setOnClickListener(this);
         cvRecovered.setOnClickListener(this);
         cvConfirmed.setOnClickListener(this);
+        ChipNavigationBar bottom_navigation = findViewById(R.id.bottom_nav);
+        bottom_navigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public void onItemSelected(int i) {
+                try{
+                    switch (i) {
 
+                        case R.id.home:
+                            startActivity(new Intent(getApplicationContext(), HeroActivity.class));
+                            finish();
+                            break;
+
+                        case R.id.covid:
+                           
+                            break;
+
+                    }}catch (Exception error) {
+                    ShowToast toast = new ShowToast();
+                    toast.makeImageToast(getApplicationContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
+
+                }}
+
+    });
+
+        bottom_navigation.setItemSelected(R.id.covid, true);
     }
 
 
@@ -92,21 +121,17 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
             ArrayList<String> provinces = new ArrayList<>();
             for(Covid covid: data){
                 String province = covid.getProvince().trim();
-
                 if (!province.isEmpty()){
-                 provinces.add(covid.getProvince());
+                    provinces.add(covid.getProvince());
                 }
-                else{
-                    provinces = null;
 
-                }
             }
-            if(provinces!= null) {
+            if(!provinces.isEmpty()) {
                 spProvince.setVisibility(View.VISIBLE);
 
                 ArrayAdapter<String> pvArraryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provinces);
                 spProvince.setAdapter(pvArraryAdapter);
-                 spProvince.setSelection(0);
+
             } else{
                 spProvince.setVisibility(View.GONE);
             }

@@ -1,5 +1,6 @@
 package com.kmm.a117349221ca2_parta.heroCRUD.readHero;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,12 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 //https://gist.github.com/codinginflow/eec0211b4fab5e5426319389377d71af
 public class HeroRecyclerAdapter extends RecyclerView.Adapter<HeroViewHolder> implements Filterable {
@@ -24,6 +27,7 @@ private List<Hero> heroListComplete;
         this.heroList = heroList;
         heroListComplete = new ArrayList<>(heroList);
 
+
     }
 
 
@@ -33,6 +37,7 @@ private List<Hero> heroListComplete;
     public HeroViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_list_item,
                 parent, false);
+
         return new HeroViewHolder(v);
     }
 
@@ -42,7 +47,10 @@ private List<Hero> heroListComplete;
         holder.tvHeroName.setText(currentHero.getHeroName());
         holder.tvTeamAffiliation.setText(currentHero.getTeamAffiliation());
         holder.tvRealName.setText(currentHero.getRealName());
-        holder.ratingBar.setRating(currentHero.getRating());
+        holder.ratingBar.setRating((float) currentHero.getRating());
+
+
+
 
     }
 

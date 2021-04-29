@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,40 +21,26 @@
         android:background="@color/view_colour"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:background="@drawable/bg_edittext"
-        android:id="@+id/etHeroName"
+
+        android:id="@+id/tvHeroName"
         android:layout_marginTop="5sp"
         android:padding="5sp"
-        android:hint="@string/et_heroname"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:maxLines="1"
         android:layout_height="wrap_content"
         />
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:background="@drawable/bg_edittext"
-        android:id="@+id/etRealName"
+        android:id="@+id/tvRealName"
         android:padding="5sp"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:maxLines="1"
         android:layout_marginTop="5sp"
-        android:hint="@string/et_realname"
         android:layout_height="wrap_content"
         />
-    <EditText
-        android:importantForAutofill="no"
+    <TextView
         android:layout_width="match_parent"
-        android:background="@drawable/bg_edittext"
-        android:id="@+id/etTeamAffiliation"
+        android:id="@+id/tvTeamAffiliation"
         android:layout_marginTop="5sp"
         android:padding="5sp"
-        android:inputType="text"
-        android:maxLines="1"
-        android:hint="@string/et_team"
         android:layout_height="wrap_content"
         />
     <RatingBar
@@ -65,7 +50,7 @@
         android:layout_gravity="center"
         android:numStars="5"
         android:stepSize="1"
-
+        android:isIndicator="true"
         style="@style/CustomRatingBarStyle"
         android:id="@+id/rating_bar"/>
 
@@ -87,12 +72,11 @@
 
         <Button
             android:layout_width="200sp"
-
             android:textColor="@android:color/holo_blue_light"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_save"
-            android:id="@+id/btnSave"
+            android:text="@string/btn_edit"
+            android:id="@+id/btnEdit"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 </LinearLayout>

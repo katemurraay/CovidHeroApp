@@ -1,4 +1,4 @@
-package com.kmm.a117349221ca2_parta.heroCRUD.deleteHero;
+package com.kmm.a117349221ca2_parta.heroCRUD.createHero;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import androidx.loader.content.Loader;
 
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
+import com.kmm.a117349221ca2_parta.heroCRUD.deleteHero.DeleteDialogFragment;
 import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
@@ -28,30 +31,32 @@ import com.kmm.a117349221ca2_parta.utils.ShowToast;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class DeleteDialogFragment extends DialogFragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Hero> {
-int position;
-Context context;
-Hero hero;
-HeroRecyclerAdapter adapter;
-View view;
-ArrayList<Hero> heroes;
-    public DeleteDialogFragment(Context context, HeroRecyclerAdapter adapter, int position, ArrayList<Hero> heroes){
+public class CreateDialogFragment extends DialogFragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Hero> {
+
+    Context context;
+    Hero hero;
+    HeroRecyclerAdapter adapter;
+    View view;
+    EditText etRealName, etHeroName, etAffiliatedTeam;
+    RatingBar ratingBar;
+    ArrayList<Hero> heroes;
+    public CreateDialogFragment(Context context, HeroRecyclerAdapter adapter, ArrayList<Hero> heroes){
         this.adapter = adapter;
         this.context = context;
-        this.position = position;
         this.heroes = heroes;
+
 
     }
 
-    public static DeleteDialogFragment newInstance(Context context, int position, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
-        DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context, adapter, position, heroes);
+    public static CreateDialogFragment newInstance(Context context, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
+       CreateDialogFragment createDialogFragment = new CreateDialogFragment(context, adapter, heroes);
         Bundle args = new Bundle();
         args.putString("title", title);
-        deleteDialogFragment.setArguments(args);
+       createDialogFragment.setArguments(args);
 
 
-        deleteDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
-        return deleteDialogFragment;
+        createDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+        return createDialogFragment;
 
 
     }
@@ -59,17 +64,15 @@ ArrayList<Hero> heroes;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.dialog_fragment_delete, container, false);
+        view = inflater.inflate(R.layout.dialog_fragment_create, container, false);
         Button btnBack = view.findViewById(R.id.btnBack);
-        Button btnDelete = view.findViewById(R.id.btnDelete);
-        TextView tvTitle = view.findViewById(R.id.tvDialogTitle);
-
-
-        hero = heroes.get(position);
-        String strTitle = "Are you sure you want to delete " + hero.getHeroName() + " ?";
-        tvTitle.setText(strTitle);
+        Button btnAdd = view.findViewById(R.id.btnAdd);
+        etRealName = view.findViewById(R.id.etRealName);
+        etHeroName = view.findViewById(R.id.etHeroName);
+        etAffiliatedTeam = view.findViewById(R.id.etTeamAffiliation);
+        ratingBar = view.findViewById(R.id.rating_bar);
         btnBack.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
         return view;
     }
 
@@ -92,16 +95,31 @@ ArrayList<Hero> heroes;
                 Objects.requireNonNull(getDialog()).dismiss();
                 adapter.notifyDataSetChanged();
                 break;
-            case R.id.btnDelete:
+            case R.id.btnAdd:
+                String realName = etRealName.getText().toString();
+                String heroName = etHeroName.getText().toString();
+                String teamAffiliation = etAffiliatedTeam.getText().toString();
+                int rating = (int) ratingBar.getRating();
+
+                if(realName.isEmpty() || heroName.isEmpty()|| teamAffiliation.isEmpty()){
+                    ShowToast toast = new ShowToast();
+                    toast.makeImageToast(getContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
+
+                } else{
                 if(checkInternetConnection()) {
-                    androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.DELETEHEROLOADERID, null, this);
+                     hero = new Hero(1, heroName, realName, rating, teamAffiliation);
+
+                     androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.CREATEHEROLOADERID, null, this);
                 } else{
                     ShowToast toast = new ShowToast();
                     toast.makeImageToast(getContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
-                }
+                }}
                 break;
 
         }}
+
+
+
 
     public boolean checkInternetConnection() {
 
@@ -115,7 +133,7 @@ ArrayList<Hero> heroes;
     @Override
     public Loader<Hero> onCreateLoader(int id, @Nullable Bundle args) {
 
-        return new com.kmm.a117349221ca2_parta.LoaderManager.DeleteHeroLoader((context), hero.getHeroID());
+        return new com.kmm.a117349221ca2_parta.LoaderManager.CreateHeroLoader((context), hero);
 
     }
 
@@ -124,8 +142,13 @@ ArrayList<Hero> heroes;
         ShowToast toast = new ShowToast();
         if(data!=null){
             toast.makeImageToast(getContext(), R.drawable.ic_check, R.string.delete_hero, Toast.LENGTH_LONG);
-            heroes.remove(hero);
-            adapter.notifyItemRemoved(position);
+            ArrayList<Hero> allHeroes = new ArrayList<>(IConstants.generalInfo.getHeroes());
+            for(Hero hero: allHeroes){
+                if(!heroes.contains(hero)){
+                    heroes.add(hero);
+                }
+            }
+            adapter.notifyDataSetChanged();
             Objects.requireNonNull(getDialog()).dismiss();
 
         } else{
@@ -138,6 +161,4 @@ ArrayList<Hero> heroes;
 
     }
 
-
 }
-

@@ -20,5 +20,9 @@ public class HeroViewHolder extends RecyclerView.ViewHolder {
         tvTeamAffiliation = itemView.findViewById(R.id.tvTeamAffiliation);
         ratingBar = itemView.findViewById(R.id.rating_bar);
 
+
     }
 }
+
+
+

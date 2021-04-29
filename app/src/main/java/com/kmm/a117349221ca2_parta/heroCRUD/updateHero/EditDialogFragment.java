@@ -3,6 +3,7 @@ package com.kmm.a117349221ca2_parta.heroCRUD.updateHero;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.media.Rating;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
+
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 
@@ -27,6 +29,7 @@ import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class EditDialogFragment extends DialogFragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Hero> {
@@ -37,13 +40,16 @@ public class EditDialogFragment extends DialogFragment implements View.OnClickLi
     View view;
     EditText etRealName, etHeroName, etAffiliatedTeam;
     RatingBar ratingBar;
-public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int position){
+    ArrayList<Hero> heroes;
+
+public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int position, ArrayList<Hero> heroes){
     this.adapter = adapter;
     this.context = context;
-    this.position = position;}
+    this.position = position;
+this.heroes = heroes;}
 
-    public static EditDialogFragment newInstance(Context context, int position, HeroRecyclerAdapter adapter, String title){
-        EditDialogFragment editDialogFragment = new EditDialogFragment(context, adapter, position);
+    public static EditDialogFragment newInstance(Context context, int position, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
+        EditDialogFragment editDialogFragment = new EditDialogFragment(context, adapter, position, heroes);
         Bundle args = new Bundle();
         args.putString("title", title);
       editDialogFragment.setArguments(args);
@@ -63,12 +69,11 @@ public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int pos
         etHeroName = view.findViewById(R.id.etHeroName);
         etAffiliatedTeam = view.findViewById(R.id.etTeamAffiliation);
         ratingBar = view.findViewById(R.id.rating_bar);
-        hero = IConstants.HERO_LIST.get(position);
+        hero = heroes.get(position);
         etHeroName.setText(hero.getHeroName());
         etRealName.setText(hero.getRealName());
         etAffiliatedTeam.setText(hero.getTeamAffiliation());
         ratingBar.setRating(hero.getRating());
-
          btnBack.setOnClickListener(this);
          btnSave.setOnClickListener(this);
         return view;
@@ -98,11 +103,11 @@ public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int pos
                     String heroName = etHeroName.getText().toString();
                     String realName = etRealName.getText().toString();
                     String team = etAffiliatedTeam.getText().toString();
-                    int rating= ratingBar.getNumStars();
+                    int rating = (int) ratingBar.getRating();
                     hero.setHeroName(heroName);
                     hero.setRealName(realName);
                     hero.setTeamAffiliation(team);
-                    hero.setRating(rating);
+                    hero.setRating((int)rating);
 
                     androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.UPDATEHEROLOADERID, null, this);
                 } else{
@@ -124,7 +129,7 @@ public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int pos
     @NonNull
     @Override
     public Loader<Hero> onCreateLoader(int id, @Nullable Bundle args) {
-        return new com.kmm.a117349221ca2_parta.LoaderManager.UpdateHeroLoader(context, hero, IConstants.generalInfo);
+        return new com.kmm.a117349221ca2_parta.LoaderManager.UpdateHeroLoader(context, hero);
     }
 
     @Override
@@ -141,6 +146,6 @@ public EditDialogFragment (Context context, HeroRecyclerAdapter adapter, int pos
 
     @Override
     public void onLoaderReset(@NonNull Loader<Hero> loader) {
-        new com.kmm.a117349221ca2_parta.LoaderManager.UpdateHeroLoader(context, hero, IConstants.generalInfo);
+        new com.kmm.a117349221ca2_parta.LoaderManager.UpdateHeroLoader(context, hero);
     }
 }

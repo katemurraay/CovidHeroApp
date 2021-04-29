@@ -23,7 +23,7 @@ public  class Hero {
         teamAffiliation = "";
     }
 
-    public Hero (int id, String heroName, String realName, int rating, String teamAffiliation){
+    public Hero (int id, String heroName, String realName,int rating, String teamAffiliation){
         this.id = id;
         this.heroName = heroName;
         this.realName = realName;

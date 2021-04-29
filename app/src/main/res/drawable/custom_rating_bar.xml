@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--Code below is based on:
+https://www.akshayrana.in/2020/06/how-to-customize-rating-bar-in-android.html -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background"
+        android:drawable="@drawable/rating_empty"/>
+
+    <item android:id="@android:id/secondaryProgress"
+        android:drawable="@drawable/rating_empty"
+        />
+    <item android:id="@android:id/progress"
+        android:drawable="@drawable/rating_fill"
+        />
+
+</layer-list>

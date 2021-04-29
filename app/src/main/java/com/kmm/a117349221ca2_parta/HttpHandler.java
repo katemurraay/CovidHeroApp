@@ -116,7 +116,7 @@ https://stackoverflow.com/questions/4205980/java-sending-http-parameters-via-pos
             Map<String,String> params = new LinkedHashMap<>();
             params.put("id", String.valueOf(hero.getHeroID()));
             params.put("name", hero.getHeroName());
-            params.put("realname", hero.getHeroName());
+            params.put("realname", hero.getRealName());
             params.put("rating",String.valueOf(hero.getRating()));
             params.put("teamaffiliation", hero.getTeamAffiliation());
 
@@ -153,6 +153,7 @@ https://stackoverflow.com/questions/4205980/java-sending-http-parameters-via-pos
             s = "IO exception";
          e.printStackTrace();
                     } finally {
+            assert conn != null;
             conn.disconnect();
         }
         return s;

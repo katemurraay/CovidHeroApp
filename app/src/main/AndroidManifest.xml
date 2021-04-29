@@ -14,7 +14,7 @@
         android:theme="@style/Theme.117349221CA2_PARTA">
         <activity android:name=".covid.LineChartActivity"></activity>
         <activity android:name=".covid.CovidActivity" />
-        <activity android:name=".heroCRUD.readHero.MainActivity">
+        <activity android:name=".heroCRUD.readHero.HeroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

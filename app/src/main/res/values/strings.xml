@@ -7,6 +7,8 @@
     <string name="btn_back">Back</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_save">Save</string>
+    <string name ="btn_add">Add</string>
+    <string name= "btn_edit">Edit</string>
     <string name="conn_error">Error Deleting Hero</string>
     <string name="delete_hero">Hero Successfully Removed</string>
 
