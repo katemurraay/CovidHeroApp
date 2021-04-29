@@ -54,7 +54,7 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
     DeleteSwipe deleteSwipe;
     EditSwipe editSwipe;
     EditText etSearch;
-    Button btnCOVID, btnAdd;
+    Button  btnAdd;
     ArrayList<Hero> heroes;
     private HeroRecyclerAdapter adapter;
 
@@ -64,7 +64,7 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero);
-        btnCOVID = findViewById(R.id.btnCovidActivity);
+
         btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
         ChipNavigationBar bottom_navigation = findViewById(R.id.bottom_nav);
@@ -81,6 +81,7 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
                     case R.id.covid:
                         startActivity(new Intent(getApplicationContext(), CovidActivity.class));
                         finish();
+                        overridePendingTransition(0, 0);
                         break;
 
                 }
@@ -94,10 +95,7 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
         bottom_navigation.setItemSelected(R.id.home, true);
 
         etSearch = findViewById(R.id.etSearch);
-        btnCOVID.setOnClickListener((view) ->{
-            Intent intent = new Intent(this, CovidActivity.class);
-            startActivity(intent);
-        });
+      
         recyclerView = findViewById(R.id.recycler_view);
         receiver =new NetworkReceiver();
         if(checkInternet(this)){

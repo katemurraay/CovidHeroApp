@@ -88,10 +88,11 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                         case R.id.home:
                             startActivity(new Intent(getApplicationContext(), HeroActivity.class));
                             finish();
+                            overridePendingTransition(0, 0);
                             break;
 
                         case R.id.covid:
-                           
+
                             break;
 
                     }}catch (Exception error) {
@@ -199,7 +200,6 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                 break;
             case R.id.cvRecovered:
                 intent.putExtra("CHART", "Recovered");
-
                 startActivity(intent);
                 break;
 

@@ -9,12 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnCovidActivity" />
+
 
     <EditText
+        android:layout_marginTop="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etSearch"
@@ -38,13 +36,13 @@
         />
 
  </LinearLayout>
-
+<!-- https://github.com/ismaeldivita/chip-navigation-bar-->
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:layout_width="match_parent"
-        android:layout_height="72sp"
+        android:layout_height="60sp"
         android:layout_gravity="bottom"
         android:id="@+id/bottom_nav"
-           android:background="@drawable/bg_navigation"
+        android:background="@drawable/bg_navigation"
         app:cnb_menuResource="@menu/bottom_menu"
         android:elevation="16sp"
         android:padding="8sp" />
