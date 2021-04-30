@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Code below is based on:
+Youtube Tutorial: "Splash Home Mobile UI Design Animation Adobe Xd to Android Studio Tutorial",
+Uploaded by: Angga Risky,
+https://www.youtube.com/watch?v=uUnap0j8wfc -->
+
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:startOffset="6000">
+<translate
+    android:fromYDelta="50%"
+    android:toYDelta="0%"
+    android:duration = "800"/>
+
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration = "600"/>
+</set>
+<!--END-->

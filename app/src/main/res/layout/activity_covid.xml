@@ -2,38 +2,41 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_covid"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
 
 <LinearLayout
-    android:background="@android:color/holo_blue_light"
+ android:layout_marginTop="150sp"
     android:layout_width="match_parent"
     android:orientation="vertical"
+
     android:layout_height="wrap_content">
-<TextView
+
+<Spinner
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAlignment="center"
-    android:id="@+id/tvResult"
-    android:text="@string/tv_result"
+    android:spinnerMode="dialog"
     android:layout_marginTop="15sp"
-    android:textColor="@android:color/white"/>
-<Spinner
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:background="@android:color/white"
+    android:background="@drawable/bg_spinner"
     android:padding="20sp"
+    android:dropDownSelector="@color/spinner"
     android:id="@+id/spCountry"/>
-<Spinner
+
+
+    <Spinner
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
+    android:background="@drawable/bg_spinner"
     android:padding="20sp"
+    android:textAlignment="center"
+    android:dropDownSelector="@color/spinner"
     android:visibility="gone"
     android:layout_marginTop="15sp"
     android:prompt="@string/sp_Province"
     android:id="@+id/spProvince"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,8 +50,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10sp"
-        android:layout_marginTop="25sp"
+        android:padding="2sp"
+        android:background="@drawable/bg_covid_card"
+        android:layout_marginTop="10sp"
         android:id="@+id/cvActive"
       >
         <LinearLayout
@@ -63,44 +67,50 @@
                 android:text="@string/tv_active"
                 android:id="@+id/tvActiveCases"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="UseCompoundDrawables"
-            android:orientation="horizontal">
+            >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20sp"
+                android:padding="10sp"
+                android:layout_gravity="start"
                 android:contentDescription="@string/tv_active"
                 android:src="@drawable/ic_virus"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
-                android:padding="20sp"
-                android:paddingEnd="200sp"
+                android:padding="10sp"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
                 android:id="@+id/tvNoActiveCases"
-                tools:ignore="RtlSymmetry" />
-
+                tools:ignore="RelativeOverlap" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20sp"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_right"
                 android:background="@android:color/white"
                 android:contentDescription="@string/tv_confirmed" />
-        </LinearLayout>
+
+        </RelativeLayout>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:background="@drawable/bg_covid_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
-        android:layout_marginTop="25sp"
+        android:layout_marginTop="10sp"
         android:id="@+id/cvConfirmed"
       >
         <LinearLayout
@@ -115,43 +125,47 @@
                 android:padding="5sp"
                 android:text="@string/tv_confirmed"
                 android:id="@+id/tvDConfirmedCases"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="UseCompoundDrawables"
+                >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20sp"
+                android:layout_alignParentStart="true"
                 android:contentDescription="@string/tv_confirmed"
                 android:src="@drawable/ic_confirmed"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
-                android:paddingEnd="200sp"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
                 android:padding="20sp"
                 android:id="@+id/tvNoConfirmedCases"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RelativeOverlap" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20sp"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_right"
                 android:background="@android:color/white"
                 android:contentDescription="@string/tv_confirmed" />
-        </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
+        android:background="@drawable/bg_covid_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="2sp"
         android:padding="10sp"
         android:layout_marginTop="25sp"
-        android:id="@+id/cvRecovered"
-        android:layout_below="@id/cvConfirmed">
+        android:id="@+id/cvRecovered">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -164,33 +178,36 @@
                 android:text="@string/tv_recovered"
                 android:id="@+id/tvRecoveredCases"/>
 
-<LinearLayout
-    android:layout_width="wrap_content"
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:ignore="UseCompoundDrawables"
-    android:orientation="horizontal">
+ >
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20sp"
+        android:layout_alignParentStart="true"
         android:contentDescription="@string/tv_recovered"
         android:src="@drawable/ic_recovered"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
-                android:paddingEnd="200sp"
+              android:layout_centerInParent="true"
                 android:padding="20sp"
+                android:textSize="18sp"
                 android:id="@+id/tvNoRecoveredCases"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RelativeOverlap" />
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20sp"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/ic_right"
         android:background="@android:color/white"
         android:contentDescription="@string/tv_confirmed" />
-</LinearLayout>
+</RelativeLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
@@ -199,6 +216,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
+        android:background="@drawable/bg_covid_card"
+        android:elevation="2sp"
         android:layout_marginTop="25sp"
         android:id="@+id/cvDeaths">
         <LinearLayout
@@ -212,49 +231,119 @@
                 android:padding="5sp"
                 android:text="@string/tv_deaths"
                 android:id="@+id/tvDeathCases"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            tools:ignore="UseCompoundDrawables"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="UseCompoundDrawables"
+                >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20sp"
+                android:layout_alignParentStart="true"
                 android:contentDescription="@string/tv_deaths"
                 android:src="@drawable/ic_deaths"/>
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
                 android:padding="20sp"
-                android:paddingEnd="200sp"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
                 android:id="@+id/tvNoDeathCases"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RelativeOverlap" />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="20sp"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_right"
                 android:background="@android:color/white"
                 android:contentDescription="@string/tv_confirmed" />
-        </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     </ScrollView>
 </LinearLayout>
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+     <!-- Code below is based on Web Article: Medium: "How to add Extended Floating Action Button in Android | Android Studio | Java"
+    Golap Gunjan Barman,
+    Medium 2014
+    https://medium.com/nerd-for-tech/how-to-add-extended-floating-action-button-in-android-android-studio-java-481cc9b3cdcb -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="72sp"
-        android:layout_gravity="bottom"
-        android:id="@+id/bottom_nav"
-        android:background="@drawable/bg_navigation"
-        app:cnb_menuResource="@menu/bottom_menu"
-        android:elevation="16sp"
-        android:padding="8sp" />
+        android:layout_height="match_parent">
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="24dp"
+        app:backgroundTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/ic_plus"
+        app:iconTint="@color/white"
+        android:text="@string/fab_hide"
+        android:textColor="@color/white"
+        app:fabSize="normal"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+
+        android:contentDescription="@string/fab_add" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="2sp"
+    android:id="@+id/fab_layout"
+    app:layout_constraintBottom_toTopOf="@+id/fabAdd"
+    app:layout_constraintEnd_toEndOf="@+id/fabAdd"
+    app:layout_constraintStart_toStartOf="@+id/fabAdd">
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabHero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:padding="2sp"
+        app:backgroundTint="@color/fab_hero"
+        android:contentDescription="@string/fab_hero"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+        android:text="@string/fab_hero"
+        android:textColor="@color/white"
+
+        app:icon="@drawable/ic_superhero"
+        app:iconTint="@color/white"
+        />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabAllChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="56dp"
+        android:padding="5sp"
+        android:text="@string/fab_linechart"
+        app:backgroundTint="@color/fab_line_chart"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_line_chart"
+        app:iconTint="@color/white"/>
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

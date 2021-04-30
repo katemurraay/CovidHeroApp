@@ -9,5 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="error_colour">#ff0000</color>
     <color name="view_colour">#b3b3b3</color>
-    <color name ="thumb_filled">#ffcc00</color>
+
+
+<color name="fab_line_chart">#cc3333</color>
+    <color name="fab_chart">	 #ffbf00</color>
+    <color name="fab_add_hero">		#33cccc</color>
+    <color name ="fab_hero">	#3333cc</color>
+    <color name="spinner">	 #00b33c</color>
 </resources>

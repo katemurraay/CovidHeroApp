@@ -4,49 +4,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_hero"
     tools:context=".heroCRUD.readHero.HeroActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginTop="15sp"
+    android:contentDescription="@string/tv_heroname"
+    android:src="@drawable/ic_superhero"/>
 
     <EditText
-        android:layout_marginTop="10sp"
+        android:labelFor="@+id/etSearch"
+        android:layout_marginTop="40sp"
+        android:background="@color/white"
+        android:padding="5sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etSearch"
         android:drawableStart="@drawable/ic_search"
-        android:autofillHints="@string/et_heroname" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAdd"
-        android:text="@string/btn_add"
-       />
+        android:autofillHints="@string/et_heroname"
+        android:inputType="text"
+        android:maxLines="1"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_marginTop="5sp"
+        android:layout_marginTop="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
         />
 
  </LinearLayout>
-<!-- https://github.com/ismaeldivita/chip-navigation-bar-->
-    <com.ismaeldivita.chipnavigation.ChipNavigationBar
+
+    <!-- Code below is based on Web Article: Medium: "How to add Extended Floating Action Button in Android | Android Studio | Java"
+    Golap Gunjan Barman,
+    Medium 2014
+    https://medium.com/nerd-for-tech/how-to-add-extended-floating-action-button-in-android-android-studio-java-481cc9b3cdcb -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_gravity="bottom"
-        android:id="@+id/bottom_nav"
-        android:background="@drawable/bg_navigation"
-        app:cnb_menuResource="@menu/bottom_menu"
-        android:elevation="16sp"
-        android:padding="8sp" />
+        android:layout_height="match_parent">
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="24dp"
+        app:backgroundTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:icon="@drawable/ic_plus"
+        app:iconTint="@color/white"
+        android:text="@string/fab_hide"
+        android:textColor="@color/white"
+        app:fabSize="normal"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+
+        android:contentDescription="@string/fab_add" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="2sp"
+    android:id="@+id/fab_layout"
+    app:layout_constraintBottom_toTopOf="@+id/fabAdd"
+    app:layout_constraintEnd_toEndOf="@+id/fabAdd"
+    app:layout_constraintStart_toStartOf="@+id/fabAdd">
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabAddHero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:padding="5sp"
+            android:contentDescription="@string/fab_add"
+            app:backgroundTint="@color/fab_add_hero"
+            android:textColor="@color/white"
+            android:text="@string/fab_add"
+
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+            app:icon="@drawable/ic_person_add"
+            app:iconTint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:padding="5sp"
+        android:text="@string/fab_chart"
+        app:backgroundTint="@color/fab_chart"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
+        android:textColor="@color/white"
+
+        app:icon="@drawable/ic_chart"
+        app:iconTint="@color/white"/>
 
 
+
+
+
+
+
+
+
+</LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

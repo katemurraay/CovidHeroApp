@@ -12,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.117349221CA2_PARTA">
-        <activity android:name=".covid.LineChartActivity"></activity>
+        <activity android:name=".covid.LineChartActivity"/>
         <activity android:name=".covid.CovidActivity" />
-        <activity android:name=".heroCRUD.readHero.HeroActivity">
+        <activity android:name=".heroCRUD.readHero.HeroActivity"/>
+         <activity android:name=".SplashscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

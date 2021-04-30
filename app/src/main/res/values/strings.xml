@@ -1,32 +1,56 @@
 <resources>
-    <string name="app_name">117349221CA2_PARTA</string>
 
+    <string name="app_name">COVID Heroes</string>
+<string name="img_hero">Hero Information</string>
+    <string name="img_covid">COVID Statistics</string>
     <string name="no_wifi">Please connect to the Internet</string>
+<!-- FAB Strings-->
+    <string name="fab_chart">COVID Statistics</string>
+    <string name="fab_search">Search Heroes</string>
+    <string name="fab_add">Add New Hero</string>
+    <string name="fab_hide">Hide</string>
+    <string name="fab_hero">Hero Information</string>
+    <string name="fab_linechart">COVID Cases Graph</string>
 
+    <!--Button Strings-->
     <string name="btn_continue">Continue</string>
     <string name="btn_back">Back</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_save">Save</string>
     <string name ="btn_add">Add</string>
     <string name= "btn_edit">Edit</string>
-    <string name="conn_error">Error Deleting Hero</string>
-    <string name="delete_hero">Hero Successfully Removed</string>
 
+    <!-- Toast Strings-->
+    <string name="conn_error">Error Deleting Hero</string>
+    <string name="error_add">Error Adding Hero</string>
+    <string name="conn_update">Error Updating Hero</string>
+    <string name="conn_search">Error with Connecting to Dataset</string>
+    <string name="delete_hero">Hero Successfully Removed</string>
+    <string name="add_hero">Hero Successfully Added</string>
+    <string name="updated_hero">Hero Successfully Updated</string>
+
+    <!-- Edit Text Strings-->
     <string name="et_heroname"> Enter Hero Name</string>
     <string name="et_realname"> Enter Real Name</string>
     <string name="et_team"> Enter Affiliated Team</string>
 
-<string-array name="days">
-    <item>5 days</item>
-    <item>10 days</item>
-</string-array>
+<!-- Text View Strings-->
+    <string name="tv_heroname">Hero Name:</string>
+    <string name="tv_realname">Real Name:</string>
+    <string name="tv_team"> Affiliated Team:</string>
+    <string name="tv_rating"> Rating:</string>
     <!-- Covid Cases-->
     <string name="sp_Province">Province</string>
     <string name="tv_deaths">Deaths</string>
-    <string name = "tv_result">COVID Breakdown for: </string>
+    <string name ="tv_result">Current COVID Cases for: </string>
     <string name="tv_active">Active Cases</string>
     <string name="tv_recovered">Recovered</string>
     <string name="tv_confirmed">Confirmed Cases</string>
+
+    <string-array name="days">
+        <item>5 days</item>
+        <item>10 days</item>
+    </string-array>
 <string-array name="european_countries">
     <item>Albania</item>
     <item>Andorra</item>

@@ -19,13 +19,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.kmm.a117349221ca2_parta.R;
+import com.kmm.a117349221ca2_parta.covid.Covid;
 import com.kmm.a117349221ca2_parta.covid.CovidActivity;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.createHero.CreateDialogFragment;
@@ -38,8 +44,7 @@ import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
 import java.util.ArrayList;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
+
 
 
 import static com.kmm.a117349221ca2_parta.utils.IConstants.ID_ADD;
@@ -54,48 +59,32 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
     DeleteSwipe deleteSwipe;
     EditSwipe editSwipe;
     EditText etSearch;
-    Button  btnAdd;
+
     ArrayList<Hero> heroes;
     private HeroRecyclerAdapter adapter;
-
+    ExtendedFloatingActionButton fabChart,  fabAddHero;
+    ExtendedFloatingActionButton fabAdd;
+LinearLayout fabLayout;
+    boolean isFabVisible;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hero);
+        fabAdd = findViewById(R.id.fabAdd);
 
-        btnAdd = findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(this);
-        ChipNavigationBar bottom_navigation = findViewById(R.id.bottom_nav);
-        bottom_navigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onItemSelected(int i) {
-               try{
-                switch (i) {
+        fabChart = findViewById(R.id.fabChart);
+        fabAddHero = findViewById(R.id.fabAddHero);
+        fabLayout = findViewById(R.id.fab_layout);
+        fabAdd.setOnClickListener(this);
+        fabAddHero.setOnClickListener(this);
 
-                    case R.id.home:
-                        break;
-
-                    case R.id.covid:
-                        startActivity(new Intent(getApplicationContext(), CovidActivity.class));
-                        finish();
-                        overridePendingTransition(0, 0);
-                        break;
-
-                }
-            } catch (Exception error) {
-                ShowToast toast = new ShowToast();
-                toast.makeImageToast(getApplicationContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
-
-            }}
-
-            });
-        bottom_navigation.setItemSelected(R.id.home, true);
-
+        fabChart.setOnClickListener(this);
         etSearch = findViewById(R.id.etSearch);
-      
+
+
+
         recyclerView = findViewById(R.id.recycler_view);
         receiver =new NetworkReceiver();
         if(checkInternet(this)){
@@ -108,6 +97,11 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
 
         }
 
+        fabAdd.shrink();
+       fabLayout.setVisibility(View.GONE);
+
+
+        isFabVisible =false;
     }
 
 
@@ -138,7 +132,7 @@ public class HeroActivity extends AppCompatActivity implements LoaderManager.Loa
         new ItemTouchHelper(deleteSwipe).attachToRecyclerView(recyclerView);
         new ItemTouchHelper(editSwipe).attachToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-recyclerView.setOnClickListener(this);
+
 
         //https://gist.github.com/codinginflow/ea0d9aeb791fb2eac190befcec448909
         etSearch.addTextChangedListener(new TextWatcher() {
@@ -186,15 +180,43 @@ recyclerView.setOnClickListener(this);
     }
 
 
+    @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnAdd){
-            CreateDialogFragment createDialogFragment = CreateDialogFragment.newInstance(this, adapter, "CREATE Hero", heroes);
-            createDialogFragment.show(getSupportFragmentManager(), "123");
-        } else{
-            int position = recyclerView.getChildAdapterPosition(v);
-            ViewDialogFragment viewDialogFragment = ViewDialogFragment.newInstance(this, position, adapter, "View Hero", heroes);
-            viewDialogFragment.show(getSupportFragmentManager(), "123");
+        switch(v.getId()){
+            case R.id.fabAdd:
+                if(!isFabVisible){
+                    fabLayout.setVisibility(View.VISIBLE);
+                    fabAdd.extend();
+                    fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_hide));
+                    isFabVisible =true;
+
+                } else{
+                  hideFloatingActionButtons();
+                }
+                break;
+            case R.id.fabAddHero:
+                CreateDialogFragment createDialogFragment = CreateDialogFragment.newInstance(this, adapter,"CREATE HERO", heroes);
+                createDialogFragment.show(getSupportFragmentManager(), "DialogFragment");
+                hideFloatingActionButtons();
+                break;
+
+            case R.id.fabChart:
+                hideFloatingActionButtons();
+                Intent intent = new Intent(getApplicationContext(), CovidActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void hideFloatingActionButtons(){
+        fabLayout.setVisibility(View.GONE);
+        fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_plus));
+        fabAdd.shrink();
+        isFabVisible =false;
     }
 }

@@ -19,12 +19,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import com.kmm.a117349221ca2_parta.heroCRUD.createHero.CreateDialogFragment;
@@ -38,19 +40,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Covid>>, View.OnClickListener, AdapterView.OnItemSelectedListener {
-   TextView tvResult, tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
+   TextView  tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
    NetworkReceiver receiver;
    ScrollView scrollView;
    String strProvince;
     Spinner spCountry, spProvince;
    CardView cvConfirmed, cvActive, cvRecovered, cvDeaths;
    String strCountry;
+   LinearLayout fabLayout;
+   ExtendedFloatingActionButton fabAdd, fabHero, fabAllChart;
    ArrayList<Covid> currentCases;
+   boolean isFabVisible;
+   boolean isProvinceVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid);
-        tvResult = findViewById(R.id.tvResult);
+
         scrollView = findViewById(R.id.scrollView);
         tvNumActive = findViewById(R.id.tvNoActiveCases);
         tvNumDeaths = findViewById(R.id.tvNoDeathCases);
@@ -62,48 +68,32 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         cvDeaths = findViewById(R.id.cvDeaths);
         spCountry = findViewById(R.id.spCountry);
         spProvince = findViewById(R.id.spProvince);
+        fabAdd = findViewById(R.id.fabAdd);
+        fabHero = findViewById(R.id.fabHero);
+        fabAllChart = findViewById(R.id.fabAllChart);
+        fabLayout = findViewById(R.id.fab_layout);
         currentCases = new ArrayList<>();
         receiver = new NetworkReceiver();
         strProvince = "";
+        isFabVisible = false;
         String[] countries;
         countries = getResources().getStringArray(R.array.european_countries);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, countries);
         spCountry.setAdapter(arrayAdapter);
         spCountry.setSelection(20);
+        fabLayout.setVisibility(View.GONE);
+        isProvinceVisible = false;
+
         spCountry.setOnItemSelectedListener(this);
         spProvince.setOnItemSelectedListener(this);
-
+        fabAdd.shrink();
+        fabAllChart.setOnClickListener(this);
+        fabHero.setOnClickListener(this);
+        fabAdd.setOnClickListener(this);
         cvDeaths.setOnClickListener(this);
         cvActive.setOnClickListener(this);
         cvRecovered.setOnClickListener(this);
         cvConfirmed.setOnClickListener(this);
-        ChipNavigationBar bottom_navigation = findViewById(R.id.bottom_nav);
-        bottom_navigation.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public void onItemSelected(int i) {
-                try{
-                    switch (i) {
-
-                        case R.id.home:
-                            startActivity(new Intent(getApplicationContext(), HeroActivity.class));
-                            finish();
-                            overridePendingTransition(0, 0);
-                            break;
-
-                        case R.id.covid:
-
-                            break;
-
-                    }}catch (Exception error) {
-                    ShowToast toast = new ShowToast();
-                    toast.makeImageToast(getApplicationContext(), R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
-
-                }}
-
-    });
-
-        bottom_navigation.setItemSelected(R.id.covid, true);
     }
 
 
@@ -117,6 +107,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Covid>> loader, ArrayList<Covid> data) {
         if(data!=null){
+            int index;
             currentCases= new ArrayList<>(data);
             scrollView.setVisibility(View.VISIBLE);
             ArrayList<String> provinces = new ArrayList<>();
@@ -128,18 +119,22 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
             }
             if(!provinces.isEmpty()) {
+                isProvinceVisible = true;
                 spProvince.setVisibility(View.VISIBLE);
-
                 ArrayAdapter<String> pvArraryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, provinces);
                 spProvince.setAdapter(pvArraryAdapter);
+                index = spProvince.getSelectedItemPosition();
 
             } else{
+                isProvinceVisible = false;
                 spProvince.setVisibility(View.GONE);
+                index = 0;
             }
-            tvNumDeaths.setText(String.valueOf(data.get(0).getDeaths()));
-            tvNumActive.setText(String.valueOf(data.get(0).getActive()));
-            tvNumRecovered.setText(String.valueOf(data.get(0).getRecovered()));
-            tvNumConfirmed.setText(String.valueOf(data.get(0).getConfirmed()));
+
+            tvNumDeaths.setText(String.valueOf(data.get(index).getDeaths()));
+            tvNumActive.setText(String.valueOf(data.get(index).getActive()));
+            tvNumRecovered.setText(String.valueOf(data.get(index).getRecovered()));
+            tvNumConfirmed.setText(String.valueOf(data.get(index).getConfirmed()));
 
 
         }
@@ -173,11 +168,11 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         unregisterReceiver(receiver);
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "UseCompatLoadingForDrawables"})
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(CovidActivity.this, LineChartActivity.class);
-        if(spProvince.getVisibility() == View.VISIBLE){
+        if(isProvinceVisible){
             strProvince = spProvince.getSelectedItem().toString();
 
         } else{
@@ -189,19 +184,48 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
             case R.id.cvActive:
                 intent.putExtra("CHART", "Active");
                 startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             case R.id.cvConfirmed:
                 intent.putExtra("CHART", "Confirmed");
                 startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             case R.id.cvDeaths:
                 intent.putExtra("CHART", "Deaths");
                 startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
             case R.id.cvRecovered:
                 intent.putExtra("CHART", "Recovered");
                 startActivity(intent);
+                overridePendingTransition(0, 0);
                 break;
+            case R.id.fabAdd:
+                if(!isFabVisible){
+                    fabLayout.setVisibility(View.VISIBLE);
+                    fabAdd.extend();
+                    fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_hide));
+                    isFabVisible =true;
+                } else{
+                    fabAdd.shrink();
+                    fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_plus));
+                    fabLayout.setVisibility(View.GONE);
+                    isFabVisible =false;
+                }
+                break;
+            case R.id.fabHero:
+                Intent heroIntent = new Intent(getApplicationContext(), HeroActivity.class);
+                startActivity(heroIntent);
+                finish();
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.fabAllChart:
+                intent.putExtra("CHART", "All");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                break;
+
 
 
         }
