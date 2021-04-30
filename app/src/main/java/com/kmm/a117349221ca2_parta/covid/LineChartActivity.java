@@ -1,8 +1,10 @@
 package com.kmm.a117349221ca2_parta.covid;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,8 +51,7 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
     Spinner spDays;
     String province, chart;
     ArrayList<Entry> entryArrayList;
-
-
+    Toolbar toolbar;
 
 
     @Override
@@ -60,7 +61,18 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
         lcCases = findViewById(R.id.lcCovidCases);
         covidData = new ArrayList<>(IConstants.COVID_LIST);
         tvLineTitle = findViewById(R.id.tvLineTitle);
+
+        toolbar  = (Toolbar) findViewById(R.id.toolbar);
         spDays = findViewById(R.id.spNoDays);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CovidActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        });
         chart = getIntent().getExtras().getString("CHART");
         province = getIntent().getExtras().getString("PROVINCE");
         String[] days;
@@ -75,7 +87,7 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
         spDays.setOnItemSelectedListener(this);
         spDays.setSelection(0);
 
-
+        setSupportActionBar(toolbar);
 
 
     }
@@ -116,8 +128,8 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
                 dataSets1.add(lineDataSet);
                 Legend leg = lcCases.getLegend();
                 leg.setEnabled(false);
-
-
+            String title = chart.toUpperCase() + " CASES FROM COVID-19";
+            toolbar.setTitle(title);
             } else{
                 LineDataSet activeDataSet= new LineDataSet((LineChartData( days,"Active")), "Active");
                 LineDataSet confirmedDataSet= new LineDataSet((LineChartData( days,"Confirmed")), "Confirmed");
@@ -164,6 +176,8 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
                 dataSets1.add(confirmedDataSet);
                 Legend leg = lcCases.getLegend();
                 leg.setEnabled(true);
+                String title = "BREAKDOWN OF CASES FROM COVID-19";
+                toolbar.setTitle(title);
 
             }
         data = new LineData(dataSets1);

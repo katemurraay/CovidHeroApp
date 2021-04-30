@@ -16,4 +16,5 @@
     <color name="fab_add_hero">		#33cccc</color>
     <color name ="fab_hero">	#3333cc</color>
     <color name="spinner">	 #00b33c</color>
+    <color name="covid">#feed01</color>
 </resources>

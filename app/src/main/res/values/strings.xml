@@ -4,6 +4,8 @@
 <string name="img_hero">Hero Information</string>
     <string name="img_covid">COVID Statistics</string>
     <string name="no_wifi">Please connect to the Internet</string>
+
+
 <!-- FAB Strings-->
     <string name="fab_chart">COVID Statistics</string>
     <string name="fab_search">Search Heroes</string>
