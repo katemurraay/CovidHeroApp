@@ -46,7 +46,8 @@ ArrayList<Hero> heroes;
     public static DeleteDialogFragment newInstance(Context context, int position, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
         DeleteDialogFragment deleteDialogFragment = new DeleteDialogFragment(context, adapter, position, heroes);
         Bundle args = new Bundle();
-        args.putString("title", title);
+        String strTitle = context.getResources().getString(R.string.title);
+        args.putString(strTitle, title);
         deleteDialogFragment.setArguments(args);
 
 
@@ -66,7 +67,7 @@ ArrayList<Hero> heroes;
 
 
         hero = heroes.get(position);
-        String strTitle = "Are you sure you want to delete " + hero.getHeroName() + " ?";
+        String strTitle = context.getResources().getString(R.string.delete_message) + " " + hero.getHeroName() + " ?";
         tvTitle.setText(strTitle);
         btnBack.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
@@ -129,7 +130,7 @@ ArrayList<Hero> heroes;
             Objects.requireNonNull(getDialog()).dismiss();
 
         } else{
-            toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.conn_error, Toast.LENGTH_LONG);
+            toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.error_delete, Toast.LENGTH_LONG);
         }
     }
 

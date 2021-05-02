@@ -47,8 +47,8 @@ public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         int position = viewHolder.getAdapterPosition();
-        DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(context, position, adapter, "Delete Hero", heroes);
-        deleteDialogFragment.show(activity.getSupportFragmentManager(), "123");
+        DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(context, position, adapter, context.getResources().getString(R.string.dialog_delete), heroes);
+        deleteDialogFragment.show(activity.getSupportFragmentManager(), context.getResources().getString(R.string.dialog_tag));
     }
     /*
     Code below is based on:

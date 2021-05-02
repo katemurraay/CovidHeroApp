@@ -51,8 +51,9 @@ this.heroes = heroes;}
     public static EditDialogFragment newInstance(Context context, int position, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
         EditDialogFragment editDialogFragment = new EditDialogFragment(context, adapter, position, heroes);
         Bundle args = new Bundle();
-        args.putString("title", title);
-      editDialogFragment.setArguments(args);
+        String strTitle = context.getResources().getString(R.string.title);
+        args.putString(strTitle, title);
+        editDialogFragment.setArguments(args);
 
 
         editDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
@@ -136,11 +137,11 @@ this.heroes = heroes;}
     public void onLoadFinished(@NonNull Loader<Hero> loader, Hero data) {
     ShowToast toast = new ShowToast();
     if(data != null){
-        toast.makeImageToast(getContext(), R.drawable.ic_check, R.string.delete_hero, Toast.LENGTH_LONG);
+        toast.makeImageToast(getContext(), R.drawable.ic_check, R.string.updated_hero, Toast.LENGTH_LONG);
         adapter.notifyItemChanged(position);
         Objects.requireNonNull(getDialog()).dismiss();
     }else{
-        toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.conn_error, Toast.LENGTH_LONG);
+        toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.error_update, Toast.LENGTH_LONG);
     }
     }
 

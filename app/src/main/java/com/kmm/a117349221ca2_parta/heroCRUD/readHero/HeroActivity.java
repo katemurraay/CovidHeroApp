@@ -134,7 +134,9 @@ LinearLayout fabLayout;
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
 
-        //https://gist.github.com/codinginflow/ea0d9aeb791fb2eac190befcec448909
+        /*Code below is based on Github Repository:  codinginflow/ExampleAdapter.java
+        Coding in flow,
+         https://gist.github.com/codinginflow/ea0d9aeb791fb2eac190befcec448909 */
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -150,7 +152,7 @@ LinearLayout fabLayout;
             public void afterTextChanged(Editable s) {
                 adapter.getFilter().filter(s.toString());
 
-            }
+            } //END
         });
 
     }
@@ -196,8 +198,8 @@ LinearLayout fabLayout;
                 }
                 break;
             case R.id.fabAddHero:
-                CreateDialogFragment createDialogFragment = CreateDialogFragment.newInstance(this, adapter,"CREATE HERO", heroes);
-                createDialogFragment.show(getSupportFragmentManager(), "DialogFragment");
+                CreateDialogFragment createDialogFragment = CreateDialogFragment.newInstance(this, adapter,getResources().getString(R.string.dialog_create), heroes);
+                createDialogFragment.show(getSupportFragmentManager(), getResources().getString(R.string.dialog_tag));
                 hideFloatingActionButtons();
                 break;
 

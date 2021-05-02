@@ -48,8 +48,8 @@ public class EditSwipe extends ItemTouchHelper.SimpleCallback {
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(context, position, adapter, "Edit Hero", heroes);
-            editDialogFragment.show(activity.getSupportFragmentManager(), "1234");
+            EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(context, position, adapter, context.getResources().getString(R.string.dialog_edit), heroes);
+            editDialogFragment.show(activity.getSupportFragmentManager(), context.getResources().getString(R.string.dialog_tag));
         }
         /*
         Code below is based on:

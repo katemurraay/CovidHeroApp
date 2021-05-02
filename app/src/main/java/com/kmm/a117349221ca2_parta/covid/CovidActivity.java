@@ -40,18 +40,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Covid>>, View.OnClickListener, AdapterView.OnItemSelectedListener {
-   TextView  tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
-   NetworkReceiver receiver;
-   ScrollView scrollView;
-   String strProvince;
+    TextView  tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
+    NetworkReceiver receiver;
+    ScrollView scrollView;
+    String strProvince;
     Spinner spCountry, spProvince;
-   CardView cvConfirmed, cvActive, cvRecovered, cvDeaths;
-   String strCountry;
-   LinearLayout fabLayout;
-   ExtendedFloatingActionButton fabAdd, fabHero, fabAllChart;
-   ArrayList<Covid> currentCases;
-   boolean isFabVisible;
-   boolean isProvinceVisible;
+    CardView cvConfirmed, cvActive, cvRecovered, cvDeaths;
+    String strCountry;
+    LinearLayout fabLayout;
+    ExtendedFloatingActionButton fabAdd, fabHero, fabAllChart;
+    ArrayList<Covid> currentCases;
+    boolean isFabVisible;
+    boolean isProvinceVisible;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,26 +178,26 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         } else{
             strProvince =null;
         }
-        intent.putExtra("PROVINCE", strProvince);
+        intent.putExtra(getResources().getString(R.string.covid_province), strProvince);
         switch (v.getId()) {
 
             case R.id.cvActive:
-                intent.putExtra("CHART", "Active");
+                intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_active));
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;
             case R.id.cvConfirmed:
-                intent.putExtra("CHART", "Confirmed");
+                intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_confirmed));
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;
             case R.id.cvDeaths:
-                intent.putExtra("CHART", "Deaths");
+                intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_deaths));
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;
             case R.id.cvRecovered:
-                intent.putExtra("CHART", "Recovered");
+                intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_recovered));
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;
@@ -235,25 +235,25 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(parent.getId() == R.id.spCountry){
             String item = parent.getItemAtPosition(position).toString();
-        if(checkInternet(this)){
-            if(strCountry != null) {
-                strCountry = null;
-                strCountry = item.toLowerCase();
-                Log.d("StrCountry", strCountry);
-                androidx.loader.app.LoaderManager.getInstance(this).restartLoader(IConstants.GETCOVIDLOADERID, null, this);
+            if(checkInternet(this)){
+                if(strCountry != null) {
+                    strCountry = null;
+                    strCountry = item.toLowerCase();
+                    Log.d("StrCountry", strCountry);
+                    androidx.loader.app.LoaderManager.getInstance(this).restartLoader(IConstants.GETCOVIDLOADERID, null, this);
+
+                } else{
+                    strCountry = item.toLowerCase();
+                    Log.d("StrCountry", strCountry);
+                    androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.GETCOVIDLOADERID, null, this);
+
+                }
 
             } else{
-                strCountry = item.toLowerCase();
-                Log.d("StrCountry", strCountry);
-                androidx.loader.app.LoaderManager.getInstance(this).initLoader(IConstants.GETCOVIDLOADERID, null, this);
+                ShowToast toast = new ShowToast();
+                toast.makeImageToast(this, R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
 
             }
-
-        } else{
-            ShowToast toast = new ShowToast();
-            toast.makeImageToast(this, R.drawable.ic_wifi_off, R.string.no_wifi, Toast.LENGTH_LONG);
-
-        }
         } else if (parent.getId() == R.id.spProvince){
 
             tvNumDeaths.setText(String.valueOf(currentCases.get(position).getDeaths()));

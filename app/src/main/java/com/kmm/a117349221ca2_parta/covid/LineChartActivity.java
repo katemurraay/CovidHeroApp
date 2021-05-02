@@ -51,7 +51,8 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
     Spinner spDays;
     String province, chart;
     ArrayList<Entry> entryArrayList;
-    Toolbar toolbar;
+Toolbar toolbar;
+String toolbarTitle;
 
 
     @Override
@@ -61,25 +62,14 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
         lcCases = findViewById(R.id.lcCovidCases);
         covidData = new ArrayList<>(IConstants.COVID_LIST);
         tvLineTitle = findViewById(R.id.tvLineTitle);
-
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
         spDays = findViewById(R.id.spNoDays);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), CovidActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
-            }
-        });
-        chart = getIntent().getExtras().getString("CHART");
-        province = getIntent().getExtras().getString("PROVINCE");
+        chart = getIntent().getExtras().getString(getResources().getString(R.string.covid_chart));
+        province = getIntent().getExtras().getString(getResources().getString(R.string.covid_province));
         String[] days;
         days = getResources().getStringArray(R.array.days);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         LineData data = new LineData();
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         data.setValueTextColor(Color.BLACK);
 
         lcCases.setData(data);
@@ -87,7 +77,7 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
         spDays.setOnItemSelectedListener(this);
         spDays.setSelection(0);
 
-        setSupportActionBar(toolbar);
+
 
 
     }
@@ -99,97 +89,100 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-   Log.d("ItemSelected", String.valueOf(position));
+        Log.d("ItemSelected", String.valueOf(position));
         int days;
         if(position == 0){
-        days = 5;
+            days = 5;
         } else{
-         days = 10;
+            days = 10;
         }
-            LineData data = lcCases.getData();
-            ILineDataSet ds= data.getDataSetByIndex(0);
-            if(ds == null){
-                ds =createLineChart();
-                data.addDataSet(ds);
+        LineData data = lcCases.getData();
+        ILineDataSet ds= data.getDataSetByIndex(0);
+        if(ds == null){
+            ds =createLineChart();
+            data.addDataSet(ds);
 
-            }
+        }
         ArrayList<ILineDataSet> dataSets1;
-            if(!chart.equals("All")) {
-                LineDataSet lineDataSet = new LineDataSet((LineChartData( days, chart)), chart);
-                lineDataSet.setFillColor(Color.TRANSPARENT);
-                lineDataSet.setColor(Color.RED);
-                lineDataSet.setCircleColor(Color.BLUE);
-                lineDataSet.setLineWidth(5f);
-                lineDataSet.setCircleRadius(4f);
-                lineDataSet.setDrawCircleHole(true);
-                lineDataSet.setValueTextSize(10f);
-                lineDataSet.setDrawFilled(true);
-                 dataSets1 = new ArrayList<>();
-                dataSets1.add(lineDataSet);
-                Legend leg = lcCases.getLegend();
-                leg.setEnabled(false);
-            String title = chart.toUpperCase() + " CASES FROM COVID-19";
-            toolbar.setTitle(title);
-            } else{
-                LineDataSet activeDataSet= new LineDataSet((LineChartData( days,"Active")), "Active");
-                LineDataSet confirmedDataSet= new LineDataSet((LineChartData( days,"Confirmed")), "Confirmed");
-                LineDataSet deathDataSet= new LineDataSet((LineChartData( days,"Deaths")), "Deaths");
-                LineDataSet recoveredDataSet= new LineDataSet((LineChartData(days,"Recovered")), "Recovered");
-
-                activeDataSet.setColor(Color.RED);
-                activeDataSet.setCircleColor(Color.BLUE);
-                activeDataSet.setLineWidth(5f);
-                activeDataSet.setCircleRadius(4f);
-                activeDataSet.setDrawCircleHole(true);
-                activeDataSet.setValueTextSize(10f);
-                activeDataSet.setDrawFilled(true);
-
-                deathDataSet.setColor(Color.BLACK);
-                deathDataSet.setCircleColor(Color.BLUE);
-                deathDataSet.setLineWidth(5f);
-                deathDataSet.setCircleRadius(4f);
-                deathDataSet.setDrawCircleHole(true);
-                deathDataSet.setValueTextSize(10f);
-                deathDataSet.setDrawFilled(true);
-
-                recoveredDataSet.setColor(Color.GREEN);
-                recoveredDataSet.setCircleColor(Color.BLUE);
-                recoveredDataSet.setLineWidth(5f);
-                recoveredDataSet.setCircleRadius(4f);
-                recoveredDataSet.setDrawCircleHole(true);
-                recoveredDataSet.setValueTextSize(10f);
-                recoveredDataSet.setDrawFilled(true);
-
-                confirmedDataSet.setColor(Color.GRAY);
-                confirmedDataSet.setCircleColor(Color.BLUE);
-                confirmedDataSet.setLineWidth(5f);
-                confirmedDataSet.setCircleRadius(4f);
-                confirmedDataSet.setDrawCircleHole(true);
-                confirmedDataSet.setValueTextSize(10f);
-                confirmedDataSet.setDrawFilled(true);
+        if(!chart.equals("All")) {
+            LineDataSet lineDataSet = new LineDataSet((LineChartData( days, chart)), chart);
+            lineDataSet.setFillColor(Color.TRANSPARENT);
+            lineDataSet.setColor(Color.RED);
+            lineDataSet.setCircleColor(Color.BLUE);
+            lineDataSet.setLineWidth(5f);
+            lineDataSet.setCircleRadius(4f);
+            lineDataSet.setDrawCircleHole(true);
+            lineDataSet.setValueTextSize(10f);
+            lineDataSet.setDrawFilled(true);
+            dataSets1 = new ArrayList<>();
+            dataSets1.add(lineDataSet);
+            Legend leg = lcCases.getLegend();
+            leg.setEnabled(false);
+            toolbarTitle =  chart.toUpperCase() + " " +getResources().getString(R.string.covid_title_menu)  ;
 
 
-                dataSets1 = new ArrayList<>();
-                dataSets1.add(activeDataSet);
-                dataSets1.add(recoveredDataSet);
-                dataSets1.add(deathDataSet);
-                dataSets1.add(confirmedDataSet);
-                Legend leg = lcCases.getLegend();
-                leg.setEnabled(true);
-                String title = "BREAKDOWN OF CASES FROM COVID-19";
-                toolbar.setTitle(title);
+        } else{
+            LineDataSet activeDataSet= new LineDataSet((LineChartData( days,getResources().getString(R.string.chart_active))), getResources().getString(R.string.chart_active));
+            LineDataSet confirmedDataSet= new LineDataSet((LineChartData( days,getResources().getString(R.string.chart_confirmed))), getResources().getString(R.string.chart_confirmed));
+            LineDataSet deathDataSet= new LineDataSet((LineChartData( days,getResources().getString(R.string.chart_deaths))), getResources().getString(R.string.chart_deaths));
+            LineDataSet recoveredDataSet= new LineDataSet((LineChartData(days,getResources().getString(R.string.chart_recovered))), getResources().getString(R.string.chart_recovered));
 
-            }
+            activeDataSet.setColor(Color.RED);
+            activeDataSet.setCircleColor(Color.BLUE);
+            activeDataSet.setLineWidth(5f);
+            activeDataSet.setCircleRadius(4f);
+            activeDataSet.setDrawCircleHole(true);
+            activeDataSet.setValueTextSize(10f);
+            activeDataSet.setDrawFilled(true);
+
+            deathDataSet.setColor(Color.BLACK);
+            deathDataSet.setCircleColor(Color.BLUE);
+            deathDataSet.setLineWidth(5f);
+            deathDataSet.setCircleRadius(4f);
+            deathDataSet.setDrawCircleHole(true);
+            deathDataSet.setValueTextSize(10f);
+            deathDataSet.setDrawFilled(true);
+
+            recoveredDataSet.setColor(Color.GREEN);
+            recoveredDataSet.setCircleColor(Color.BLUE);
+            recoveredDataSet.setLineWidth(5f);
+            recoveredDataSet.setCircleRadius(4f);
+            recoveredDataSet.setDrawCircleHole(true);
+            recoveredDataSet.setValueTextSize(10f);
+            recoveredDataSet.setDrawFilled(true);
+
+            confirmedDataSet.setColor(Color.GRAY);
+            confirmedDataSet.setCircleColor(Color.BLUE);
+            confirmedDataSet.setLineWidth(5f);
+            confirmedDataSet.setCircleRadius(4f);
+            confirmedDataSet.setDrawCircleHole(true);
+            confirmedDataSet.setValueTextSize(10f);
+            confirmedDataSet.setDrawFilled(true);
+            toolbarTitle = getResources().getString(R.string.all_covid_title_menu);
+
+
+            dataSets1 = new ArrayList<>();
+            dataSets1.add(activeDataSet);
+            dataSets1.add(recoveredDataSet);
+            dataSets1.add(deathDataSet);
+            dataSets1.add(confirmedDataSet);
+            Legend leg = lcCases.getLegend();
+            leg.setEnabled(true);
+
+        }
         data = new LineData(dataSets1);
         lcCases.setData(data);
+        toolbar.setTitle(toolbarTitle);
         Log.d("ArraySize", String.valueOf(covidData.size()));
         lcCases.notifyDataSetChanged();
         lcCases.setTouchEnabled(true);
         lcCases.setPinchZoom(true);
         YAxis leftaxis = lcCases.getAxisLeft();
+
         leftaxis.setDrawLabels(false);
         XAxis xAxis = lcCases.getXAxis();
         xAxis.setGranularity(1f);
+        xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         Description des = lcCases.getDescription();
@@ -201,78 +194,24 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
 
     private ArrayList<Entry> LineChartData ( int days, String cases){
 
-    ArrayList<Entry> entries = new ArrayList<>();
+        ArrayList<Entry> entries;
 
         if(province == null){
-            int i;
-            int numbers =0;
-            for(i = covidData.size()-days; i< covidData.size();i++) {
-                Covid covid = covidData.get(i);
-                switch (cases){
-                    case "Deaths":
-                        numbers = covid.getDeaths();
-                        break;
-                    case "Confirmed":
-                        numbers = covid.getConfirmed();
-                        break;
-                    case "Recovered":
-                        numbers = covid.getRecovered();
-                        break;
-                    case "Active":
-                        numbers = covid.getActive();
-                        break;
 
 
-                }
-                Date date = covid.getDate();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM", Locale.ENGLISH);
-                String strDate = formatter.format(date);
-
-                float f = Float.parseFloat(strDate);
-
-
-                entries.add(new Entry(f, numbers));
+                entries = new ArrayList<>(getEntryArrayList(covidData, days, cases));
             }
-        } else{
+         else {
             ArrayList<Covid> provinceList = new ArrayList<>();
-            for(Covid covid : covidData){
+            for (Covid covid : covidData) {
                 String covidDataProvince = covid.getProvince();
-                if(covidDataProvince.equals(province)){
+                if (covidDataProvince.equals(province)) {
                     provinceList.add(covid);
                 }
             }
-            int i;
-            int numbers =0;
+          entries = new ArrayList<>(getEntryArrayList(provinceList, days, cases));
             Log.d("LineChartProvince", province);
-            for(i = provinceList.size()-days; i< provinceList.size();i++) {
-                Covid covid = provinceList.get(i);
-                Log.d("LineChartProvince", covid.getProvince());
-                switch (cases){
-                    case "Deaths":
-                        numbers = covid.getDeaths();
-                        break;
-                    case "Confirmed":
-                        numbers = covid.getConfirmed();
-                        break;
-                    case "Recovered":
-                        numbers = covid.getRecovered();
-                        break;
-                    case "Active":
-                        numbers = covid.getActive();
-                        break;
-
-
-                }
-                Date date = covid.getDate();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd.MM", Locale.ENGLISH);
-                String strDate = formatter.format(date);
-
-                float f = Float.parseFloat(strDate);
-                Log.d("LineChart", String.valueOf(f));
-                entries.add(new Entry(f, numbers));
-            }
-    }
-        return entries;
+        } return entries;
     }
 
     private LineDataSet createLineChart() {
@@ -284,6 +223,39 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
 
     }
 
+public ArrayList<Entry> getEntryArrayList(ArrayList<Covid> covidList, int days, String cases){
+        int numbers =0;
+        ArrayList<Entry> entries = new ArrayList<>();
+                for(int i = covidList.size()-days; i<covidList.size();i++) {
+                    Covid covid = covidList.get(i);
+                    Log.d("LineChartProvince", covid.getProvince());
+                    switch (cases){
+                        case "Deaths":
+                            numbers = covid.getDeaths();
+                            break;
+                        case "Confirmed":
+                            numbers = covid.getConfirmed();
+                            break;
+                        case "Recovered":
+                            numbers = covid.getRecovered();
+                            break;
+                        case "Active":
+                            numbers = covid.getActive();
+                            break;
+
+
+                    }
+                    Date date = covid.getDate();
+                    SimpleDateFormat formatter = new SimpleDateFormat("DD", Locale.ENGLISH);
+                    String strDate = formatter.format(date);
+
+                    float f = Float.parseFloat(strDate);
+                    Log.d("LineChart", String.valueOf(f));
+                    entries.add(new Entry(f, numbers));
+                }
+
+            return entries;
+        }
 
 
 
@@ -292,6 +264,5 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
 
     }
 }
-
 
 

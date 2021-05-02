@@ -51,7 +51,8 @@ public class CreateDialogFragment extends DialogFragment implements View.OnClick
     public static CreateDialogFragment newInstance(Context context, HeroRecyclerAdapter adapter, String title, ArrayList<Hero> heroes){
        CreateDialogFragment createDialogFragment = new CreateDialogFragment(context, adapter, heroes);
         Bundle args = new Bundle();
-        args.putString("title", title);
+        String strTitle = context.getResources().getString(R.string.title);
+        args.putString(strTitle, title);
        createDialogFragment.setArguments(args);
 
 
@@ -128,7 +129,7 @@ public class CreateDialogFragment extends DialogFragment implements View.OnClick
 
         return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-    }// END
+    }
     @NonNull
     @Override
     public Loader<Hero> onCreateLoader(int id, @Nullable Bundle args) {
@@ -141,7 +142,7 @@ public class CreateDialogFragment extends DialogFragment implements View.OnClick
     public void onLoadFinished(@NonNull Loader<Hero> loader, Hero data) {
         ShowToast toast = new ShowToast();
         if(data!=null){
-            toast.makeImageToast(getContext(), R.drawable.ic_check, R.string.delete_hero, Toast.LENGTH_LONG);
+            toast.makeImageToast(getContext(), R.drawable.ic_check, R.string.add_hero, Toast.LENGTH_LONG);
             ArrayList<Hero> allHeroes = new ArrayList<>(IConstants.generalInfo.getHeroes());
             for(Hero hero: allHeroes){
                 if(!heroes.contains(hero)){
@@ -152,7 +153,7 @@ public class CreateDialogFragment extends DialogFragment implements View.OnClick
             Objects.requireNonNull(getDialog()).dismiss();
 
         } else{
-            toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.conn_error, Toast.LENGTH_LONG);
+            toast.makeImageToast(getContext(), R.drawable.ic_error, R.string.error_add, Toast.LENGTH_LONG);
         }
     }
 
