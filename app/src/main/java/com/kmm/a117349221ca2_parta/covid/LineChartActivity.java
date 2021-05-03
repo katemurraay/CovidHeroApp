@@ -1,5 +1,7 @@
 package com.kmm.a117349221ca2_parta.covid;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,8 +54,9 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
     Spinner spDays;
     String province, chart;
     ArrayList<Entry> entryArrayList;
-Toolbar toolbar;
-String toolbarTitle;
+    Toolbar toolbar;
+    String toolbarTitle;
+    ActionBar actionBar;
 
 
     @Override
@@ -70,6 +74,12 @@ String toolbarTitle;
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         LineData data = new LineData();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         data.setValueTextColor(Color.BLACK);
 
         lcCases.setData(data);
@@ -82,11 +92,26 @@ String toolbarTitle;
 
     }
 
+/* Code below is based on Web Article: "How to Add and Customize Back Button of Action Bar in Android?"
+GeeksforGeeks
+https://www.geeksforgeeks.org/how-to-add-and-customize-back-button-of-action-bar-in-android/
+ */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                overridePendingTransition(0, 0);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+//END
 
-
-
-
-
+/* Code below is based on Web Article: "Dynamic line chart of MPAndroidChart of Android",
+Programmer Sought,
+https://www.programmersought.com/article/47345678093/
+ */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d("ItemSelected", String.valueOf(position));
@@ -106,9 +131,9 @@ String toolbarTitle;
         ArrayList<ILineDataSet> dataSets1;
         if(!chart.equals("All")) {
             LineDataSet lineDataSet = new LineDataSet((LineChartData( days, chart)), chart);
-            lineDataSet.setFillColor(Color.TRANSPARENT);
-            lineDataSet.setColor(Color.RED);
-            lineDataSet.setCircleColor(Color.BLUE);
+            lineDataSet.setFillColor(getResources().getColor(R.color.chart_background));
+            lineDataSet.setColor(getResources().getColor(R.color.chart_line));
+            lineDataSet.setCircleColor(getResources().getColor(R.color.chart_circle));
             lineDataSet.setLineWidth(5f);
             lineDataSet.setCircleRadius(4f);
             lineDataSet.setDrawCircleHole(true);
@@ -127,32 +152,36 @@ String toolbarTitle;
             LineDataSet deathDataSet= new LineDataSet((LineChartData( days,getResources().getString(R.string.chart_deaths))), getResources().getString(R.string.chart_deaths));
             LineDataSet recoveredDataSet= new LineDataSet((LineChartData(days,getResources().getString(R.string.chart_recovered))), getResources().getString(R.string.chart_recovered));
 
-            activeDataSet.setColor(Color.RED);
-            activeDataSet.setCircleColor(Color.BLUE);
+            activeDataSet.setFillColor(getResources().getColor(R.color.chart_background));
+            activeDataSet.setColor(getResources().getColor(R.color.chart_line_active));
+            activeDataSet.setCircleColor(getResources().getColor(R.color.chart_circle));
             activeDataSet.setLineWidth(5f);
             activeDataSet.setCircleRadius(4f);
             activeDataSet.setDrawCircleHole(true);
             activeDataSet.setValueTextSize(10f);
             activeDataSet.setDrawFilled(true);
 
-            deathDataSet.setColor(Color.BLACK);
-            deathDataSet.setCircleColor(Color.BLUE);
+            deathDataSet.setFillColor(getResources().getColor(R.color.chart_background));
+            deathDataSet.setColor(getResources().getColor(R.color.chart_line_deaths));
+            deathDataSet.setCircleColor(getResources().getColor(R.color.chart_circle));
             deathDataSet.setLineWidth(5f);
             deathDataSet.setCircleRadius(4f);
             deathDataSet.setDrawCircleHole(true);
             deathDataSet.setValueTextSize(10f);
             deathDataSet.setDrawFilled(true);
 
-            recoveredDataSet.setColor(Color.GREEN);
-            recoveredDataSet.setCircleColor(Color.BLUE);
+            recoveredDataSet.setFillColor(getResources().getColor(R.color.chart_background));
+            recoveredDataSet.setColor(getResources().getColor(R.color.chart_line_recovered));
+            recoveredDataSet.setCircleColor(getResources().getColor(R.color.chart_circle));
             recoveredDataSet.setLineWidth(5f);
             recoveredDataSet.setCircleRadius(4f);
             recoveredDataSet.setDrawCircleHole(true);
             recoveredDataSet.setValueTextSize(10f);
             recoveredDataSet.setDrawFilled(true);
 
-            confirmedDataSet.setColor(Color.GRAY);
-            confirmedDataSet.setCircleColor(Color.BLUE);
+            confirmedDataSet.setFillColor(getResources().getColor(R.color.chart_background));
+            confirmedDataSet.setColor(getResources().getColor(R.color.chart_line_confirmed));
+            confirmedDataSet.setCircleColor(getResources().getColor(R.color.chart_circle));
             confirmedDataSet.setLineWidth(5f);
             confirmedDataSet.setCircleRadius(4f);
             confirmedDataSet.setDrawCircleHole(true);
@@ -191,7 +220,14 @@ String toolbarTitle;
         lcCases.invalidate();
 
     }
+    private LineDataSet createLineChart() {
+        entryArrayList = new ArrayList<>();
+        LineDataSet dataSet = new LineDataSet(entryArrayList, (chart));
 
+
+        return dataSet;
+
+    } //END
     private ArrayList<Entry> LineChartData ( int days, String cases){
 
         ArrayList<Entry> entries;
@@ -214,14 +250,7 @@ String toolbarTitle;
         } return entries;
     }
 
-    private LineDataSet createLineChart() {
-        entryArrayList = new ArrayList<>();
-        LineDataSet dataSet = new LineDataSet(entryArrayList, (chart));
 
-
-        return dataSet;
-
-    }
 
 public ArrayList<Entry> getEntryArrayList(ArrayList<Covid> covidList, int days, String cases){
         int numbers =0;

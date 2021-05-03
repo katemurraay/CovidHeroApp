@@ -17,4 +17,15 @@
     <color name ="fab_hero">	#3333cc</color>
     <color name="spinner">	 #00b33c</color>
     <color name="covid">#feed01</color>
+
+    <!-- Covid Chart Colors-->
+    <color name ="chart_background">@android:color/transparent</color>
+    <color name ="chart_line">#ff0000</color>
+    <color name="chart_circle">@color/black</color>
+    <color name ="chart_line_active">#feed01</color>
+    <color name ="chart_line_deaths">#ff0000</color>
+    <color name ="chart_line_recovered">#00ff00</color>
+    <color name ="chart_line_confirmed">#3333cc</color>
+
+
 </resources>

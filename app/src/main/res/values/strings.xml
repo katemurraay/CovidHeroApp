@@ -55,8 +55,8 @@
     <string name="tv_active">Active Cases</string>
     <string name="tv_recovered">Recovered</string>
     <string name="tv_confirmed">Confirmed Cases</string>
-    <string name="covid_title_menu"> CASES FROM COVID-19</string>
-    <string name="all_covid_title_menu"> BREAKDOWN OF COVID-19 CASES </string>
+    <string name="covid_title_menu"> CASES OF COVID-19</string>
+    <string name="all_covid_title_menu"> COVID-19 CASES </string>
 
 
     <string name="covid_chart">CHART</string>
