@@ -1,5 +1,6 @@
 package com.kmm.a117349221ca2_parta.heroCRUD.readHero;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,17 @@ import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-//https://gist.github.com/codinginflow/eec0211b4fab5e5426319389377d71af
+
+
 public class HeroRecyclerAdapter extends RecyclerView.Adapter<HeroViewHolder> implements Filterable {
 private List<Hero> heroList;
 private List<Hero> heroListComplete;
+private Context context;
 
-    public HeroRecyclerAdapter(List<Hero> heroList){
+    public HeroRecyclerAdapter(List<Hero> heroList, Context context){
 
         this.heroList = heroList;
+        this.context = context;
         heroListComplete = new ArrayList<>(heroList);
 
 
@@ -44,14 +48,38 @@ private List<Hero> heroListComplete;
     @Override
     public void onBindViewHolder(@NonNull HeroViewHolder holder, int position) {
         Hero currentHero = heroList.get(position);
-        holder.tvHeroName.setText(currentHero.getHeroName());
+        String heroName= currentHero.getHeroName();
+
+        holder.tvHeroName.setText(heroName);
         holder.tvTeamAffiliation.setText(currentHero.getTeamAffiliation());
         holder.tvRealName.setText(currentHero.getRealName());
         holder.ratingBar.setRating((float) currentHero.getRating());
+        holder.imgHero.setImageResource(setImageResources(heroName.toLowerCase()));
 
 
 
 
+    }
+
+    public int setImageResources (String heroName){
+    String[] superheros = context.getResources().getStringArray(R.array.superhero);
+    int imageRes = 0;
+    if(heroName.equals(superheros[0])){
+        imageRes=R.drawable.ic_batman;
+        } else if(heroName.equals(superheros[1])){
+        imageRes=R.drawable.ic_deadpool;
+    } else if(heroName.equals(superheros[2])){
+        imageRes=R.drawable.ic_ironman;
+    } else if(heroName.equals(superheros[3])){
+        imageRes=R.drawable.ic_captainamerica;
+    } else if(heroName.equals(superheros[4])){
+        imageRes=R.drawable.ic_spiderman;
+        } else if(heroName.equals(superheros[5])){
+        imageRes=R.drawable.ic_superman;
+    }else{
+        imageRes=R.drawable.ic_cape;
+    }
+    return imageRes;
     }
 
     @Override
@@ -63,7 +91,11 @@ private List<Hero> heroListComplete;
     public Filter getFilter() {
         return heroFilter;
     }
-
+    /**
+     Code below is based on: Github Repository: codinginflow/ExampleAdapter.java,
+     Coding In Flow,
+     https://gist.github.com/codinginflow/eec0211b4fab5e5426319389377d71af
+     */
     private Filter heroFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -90,6 +122,6 @@ private List<Hero> heroListComplete;
             heroList.clear();
             heroList.addAll((ArrayList) results.values);
             notifyDataSetChanged();
-        }
+        } //END
     };
 }

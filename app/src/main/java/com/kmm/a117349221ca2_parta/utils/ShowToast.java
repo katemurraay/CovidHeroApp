@@ -16,14 +16,14 @@ import android.widget.Toast;
 import com.kmm.a117349221ca2_parta.R;
 
 public class ShowToast {
-
+    /** Code below is based on:
+     StakeOverflow Answer to Question: "Custom toast on Android: a simple example",
+     Dipak Keshariya,
+     https://stackoverflow.com/a/11288522
+     */
     @SuppressLint("ResourceAsColor")
     public Toast makeImageToast(Context context, int imageResId, int stringId, int length) {
-            /* Code below is based on:
-            StakeOverflow Answer to Question: "Custom toast on Android: a simple example",
-            Dipak Keshariya,
-            https://stackoverflow.com/a/11288522
-             */
+
 
 
 
@@ -57,7 +57,7 @@ public class ShowToast {
         return toast;
     } //END
 
-    /* Code below is based on:
+    /** Code below is based on:
    Stackoverflow Answer to Question: "How to Apply Corner Radius to LinearLayout",
    Ramesh kumar,
   https://stackoverflow.com/a/52648275*/

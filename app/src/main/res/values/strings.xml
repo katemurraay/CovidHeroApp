@@ -37,17 +37,18 @@
     <string name="dialog_edit"> Edit Dialog</string>
     <string name="dialog_delete"> Delete Dialog</string>
     <string name ="title">Title</string>
-    <string name="delete_message">Are you sure you want to delete </string>
+    <string name="delete_message">Are you sure you want to delete {0} ? </string>
     <!-- Edit Text Strings-->
     <string name="et_heroname"> Enter Hero Name</string>
     <string name="et_realname"> Enter Real Name</string>
     <string name="et_team"> Enter Affiliated Team</string>
 
 <!-- Text View Strings-->
-    <string name="tv_heroname">Hero Name:</string>
-    <string name="tv_realname">Real Name:</string>
-    <string name="tv_team"> Affiliated Team:</string>
-    <string name="tv_rating"> Rating:</string>
+    <string name="tv_heroname"><b>Hero Name: </b></string>
+    <string name="tv_realname"><b>Real Name: </b></string>
+    <string name="tv_team"><b>Affiliated Team: </b></string>
+    <string name="tv_rating"><b>Rating:</b> </string>
+
     <!-- Covid Cases-->
     <string name="sp_Province">Province</string>
     <string name="tv_deaths">Deaths</string>
@@ -70,6 +71,15 @@
     <string-array name="days">
         <item>5 days</item>
         <item>10 days</item>
+    </string-array>
+
+    <string-array name="superhero">
+        <item>batman</item>
+        <item>deadpool</item>
+        <item>iron man</item>
+        <item>captain america</item>
+        <item>spiderman</item>
+        <item>superman</item>
     </string-array>
 <string-array name="european_countries">
     <item>Albania</item>

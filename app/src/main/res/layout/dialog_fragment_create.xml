@@ -20,6 +20,12 @@
         android:background="@color/view_colour"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_heroname"
+        android:padding="5sp"
+        android:labelFor="@+id/etHeroName"/>
     <EditText
         android:layout_width="match_parent"
         android:background="@drawable/bg_edittext"
@@ -31,7 +37,13 @@
         android:inputType="text"
         android:maxLines="1"
         android:layout_height="wrap_content"
-        />
+        tools:ignore="LabelFor" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_realname"
+        android:padding="5sp"
+        android:labelFor="@+id/etRealName"/>
     <EditText
         android:layout_width="match_parent"
         android:background="@drawable/bg_edittext"
@@ -43,7 +55,13 @@
         android:layout_marginTop="5sp"
         android:hint="@string/et_realname"
         android:layout_height="wrap_content"
-        />
+        tools:ignore="LabelFor" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_team"
+        android:padding="5sp"
+        android:labelFor="@+id/etTeamAffiliation"/>
     <EditText
         android:importantForAutofill="no"
         android:layout_width="match_parent"
@@ -56,17 +74,29 @@
         android:hint="@string/et_team"
         android:layout_height="wrap_content"
         />
-    <RatingBar
-        android:layout_marginTop="20sp"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-       android:layout_gravity="center"
-        android:numStars="5"
-        android:stepSize="1"
+        android:layout_marginTop="12sp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_rating"
+            android:padding="5sp"
+            android:layout_marginEnd="25sp"
+            android:labelFor="@+id/rating_bar"/>
+        <RatingBar
+            android:layout_marginTop="5sp"
 
-        style="@style/CustomRatingBarStyle"
-        android:id="@+id/rating_bar"/>
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="2sp"
+            android:numStars="5"
+            android:stepSize="1"
+            style="@style/CustomRatingBarStyle"
+            android:id="@+id/rating_bar"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

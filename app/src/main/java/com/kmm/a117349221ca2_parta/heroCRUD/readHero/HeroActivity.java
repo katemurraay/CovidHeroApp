@@ -116,7 +116,7 @@ LinearLayout fabLayout;
     public void onLoadFinished(@NonNull Loader<ArrayList<Hero>> loader, ArrayList<Hero> data) {
         if(data != null){
       heroes = new ArrayList<>(IConstants.generalInfo.getHeroes());
-        adapter = new HeroRecyclerAdapter(heroes);
+        adapter = new HeroRecyclerAdapter(heroes, this);
         setUpRecyclerView();
         }
     }
@@ -134,7 +134,7 @@ LinearLayout fabLayout;
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
 
-        /*Code below is based on Github Repository:  codinginflow/ExampleAdapter.java
+        /** Code below is based on Github Repository:  codinginflow/ExampleAdapter.java
         Coding in flow,
          https://gist.github.com/codinginflow/ea0d9aeb791fb2eac190befcec448909 */
         etSearch.addTextChangedListener(new TextWatcher() {

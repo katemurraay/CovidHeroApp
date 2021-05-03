@@ -19,9 +19,9 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- *
- * Created by Michael Gleeson on 14/02/2019
+/** Code below is based
+ Android in Class Project: IS4448BeerServiceDemo,
+ Created by Michael Gleeson on 14/02/2019
  */
 
 public class HttpHandler {
@@ -77,7 +77,7 @@ public class HttpHandler {
             URL url = new URL(uri);
 
             conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("DELETE"); //We be doing a DELETE
+            conn.setRequestMethod("DELETE");
 
             InputStream in = conn.getInputStream();
             http_status = conn.getResponseCode();
@@ -158,7 +158,7 @@ https://stackoverflow.com/questions/4205980/java-sending-http-parameters-via-pos
         }
         return s;
 
-    }
+    } //END
 
 
 

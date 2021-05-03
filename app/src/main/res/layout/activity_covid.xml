@@ -37,6 +37,17 @@
     android:prompt="@string/sp_Province"
     android:id="@+id/spProvince"/>
 
+      <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:id="@+id/lottie_loading"
+          android:visibility="gone"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+       />
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

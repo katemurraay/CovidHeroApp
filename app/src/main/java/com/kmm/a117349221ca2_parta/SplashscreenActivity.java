@@ -28,10 +28,16 @@ ImageView ivHero, ivCovid;
         rlSplash = findViewById(R.id.rlSplash);
         ivCovid = findViewById(R.id.ivCovid);
         ivHero = findViewById(R.id.ivShield);
+        /**
+         * Code below is based on Youtube tutorial: "Splash Home Mobile UI Design Animation Adobe Xd to Android Studio Tutorial",
+         * Angga Risky,
+         * https://www.youtube.com/watch?v=uUnap0j8wfc&t=1717s
+         **/
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
         rlSplash.animate().translationY(-1700).setDuration(800).setStartDelay(4000);
         layoutMenu = findViewById(R.id.layout_menu);
         layoutMenu.startAnimation(fromBottom);
+        //END
 
         ivHero.setOnClickListener((v)->{
             Intent intent = new Intent(this, HeroActivity.class);

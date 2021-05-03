@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.kmm.a117349221ca2_parta.R;
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
@@ -52,12 +53,14 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     ArrayList<Covid> currentCases;
     boolean isFabVisible;
     boolean isProvinceVisible;
+    LottieAnimationView lottieLoading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_covid);
 
         scrollView = findViewById(R.id.scrollView);
+        lottieLoading = findViewById(R.id.lottie_loading);
         tvNumActive = findViewById(R.id.tvNoActiveCases);
         tvNumDeaths = findViewById(R.id.tvNoDeathCases);
         tvNumConfirmed = findViewById(R.id.tvNoConfirmedCases);
@@ -101,12 +104,14 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public Loader<ArrayList<Covid>> onCreateLoader(int id,  @Nullable Bundle args) {
         scrollView.setVisibility(View.GONE);
+        lottieLoading.setVisibility(View.VISIBLE);
         return new com.kmm.a117349221ca2_parta.LoaderManager.GetCOVIDLoader(this, strCountry);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Covid>> loader, ArrayList<Covid> data) {
         if(data!=null){
+            lottieLoading.setVisibility(View.GONE);
             int index;
             currentCases= new ArrayList<>(data);
             scrollView.setVisibility(View.VISIBLE);
@@ -221,7 +226,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                 overridePendingTransition(0, 0);
                 break;
             case R.id.fabAllChart:
-                intent.putExtra("CHART", "All");
+                intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_all));
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;

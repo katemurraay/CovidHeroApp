@@ -1,7 +1,5 @@
 package com.kmm.a117349221ca2_parta.covid;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.kmm.a117349221ca2_parta.HttpHandler;
@@ -11,14 +9,19 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
+/** Code below is based
+    Android in Class Project: IS4448BeerServiceDemo,
+   Created by Michael Gleeson on 14/02/2019
+   */
+
+
 public class CovidAdapter {
 
     public static final String baseURI = "https://api.covid19api.com/live/country";
 
-    private static final Covid convertToCovidObject (String covidString) {
+    private static Covid convertToCovidObject (String covidString) {
         Gson g = new Gson();
-        Covid covid = g.fromJson(covidString, Covid.class);
-        return covid;
+        return g.fromJson(covidString, Covid.class);
     }
 
 
@@ -50,5 +53,5 @@ public class CovidAdapter {
             e.printStackTrace();
         }
         return covidArrayList;
-    }
+    } //END
 }

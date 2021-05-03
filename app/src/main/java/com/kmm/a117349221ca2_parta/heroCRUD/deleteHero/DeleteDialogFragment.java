@@ -25,6 +25,7 @@ import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroRecyclerAdapter;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -67,7 +68,8 @@ ArrayList<Hero> heroes;
 
 
         hero = heroes.get(position);
-        String strTitle = context.getResources().getString(R.string.delete_message) + " " + hero.getHeroName() + " ?";
+        String pattern = context.getResources().getString(R.string.delete_message);
+        String strTitle = MessageFormat.format(pattern, hero.getHeroName());
         tvTitle.setText(strTitle);
         btnBack.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
@@ -111,7 +113,7 @@ ArrayList<Hero> heroes;
 
         return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-    }// END
+    }
     @NonNull
     @Override
     public Loader<Hero> onCreateLoader(int id, @Nullable Bundle args) {

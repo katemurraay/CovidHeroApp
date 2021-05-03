@@ -92,10 +92,10 @@ public class LineChartActivity extends AppCompatActivity implements AdapterView.
 
     }
 
-/* Code below is based on Web Article: "How to Add and Customize Back Button of Action Bar in Android?"
+/** Code below is based on Web Article: "How to Add and Customize Back Button of Action Bar in Android?"
 GeeksforGeeks
 https://www.geeksforgeeks.org/how-to-add-and-customize-back-button-of-action-bar-in-android/
- */
+ **/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -108,10 +108,10 @@ https://www.geeksforgeeks.org/how-to-add-and-customize-back-button-of-action-bar
     }
 //END
 
-/* Code below is based on Web Article: "Dynamic line chart of MPAndroidChart of Android",
+/** Code below is based on Web Article: "Dynamic line chart of MPAndroidChart of Android",
 Programmer Sought,
 https://www.programmersought.com/article/47345678093/
- */
+ **/
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d("ItemSelected", String.valueOf(position));

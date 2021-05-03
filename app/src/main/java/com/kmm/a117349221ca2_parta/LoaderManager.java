@@ -106,8 +106,8 @@ int heroID;
         protected void onStartLoading() {
             forceLoad();
             Log.d("Delete_Hero_Loader", "onStartCalled");
-        } //END
-}
+        }
+    }
 
     public static class UpdateHeroLoader extends AsyncTaskLoader<Hero> {
        Hero hero;
@@ -234,6 +234,6 @@ int heroID;
         protected void onStartLoading() {
             forceLoad();
             Log.d("GET_COVID_LOADER", "onStartCalled");
-        } //END
+        }
     }
 }

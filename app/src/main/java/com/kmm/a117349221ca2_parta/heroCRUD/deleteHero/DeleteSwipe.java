@@ -50,7 +50,7 @@ public class DeleteSwipe extends ItemTouchHelper.SimpleCallback {
         DeleteDialogFragment deleteDialogFragment = DeleteDialogFragment.newInstance(context, position, adapter, context.getResources().getString(R.string.dialog_delete), heroes);
         deleteDialogFragment.show(activity.getSupportFragmentManager(), context.getResources().getString(R.string.dialog_tag));
     }
-    /*
+    /**
     Code below is based on:
     StackOverflow Question: "Swipe to delete still shows red background with garbage can, recyclerview not updating",
     quietLip,
