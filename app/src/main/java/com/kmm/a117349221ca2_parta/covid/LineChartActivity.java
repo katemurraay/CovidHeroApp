@@ -275,7 +275,7 @@ public ArrayList<Entry> getEntryArrayList(ArrayList<Covid> covidList, int days, 
 
                     }
                     Date date = covid.getDate();
-                    SimpleDateFormat formatter = new SimpleDateFormat("DD", Locale.ENGLISH);
+                    SimpleDateFormat formatter = new SimpleDateFormat(getResources().getString(R.string.short_date_pattern), Locale.ENGLISH);
                     String strDate = formatter.format(date);
 
                     float f = Float.parseFloat(strDate);

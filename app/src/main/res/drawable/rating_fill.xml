@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Code below is based on:
+<!--Code below is based on Web Article: "Custom Rating Bar in Android",
+Akshay Rana,
 https://www.akshayrana.in/2020/06/how-to-customize-rating-bar-in-android.html -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--Icon is made by Smashicons from www.flaticon.com-->
     <item android:state_pressed="true"
         android:state_window_focused="true"
         android:drawable="@drawable/filled_star"/>
@@ -17,4 +18,5 @@ https://www.akshayrana.in/2020/06/how-to-customize-rating-bar-in-android.html --
 
     <item
         android:drawable="@drawable/filled_star"/>
+    <!--END-->
 </selector>

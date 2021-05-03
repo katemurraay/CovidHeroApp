@@ -12,6 +12,13 @@
     android:orientation="vertical"
 
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCurrentDate"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textAlignment="center"/>
 
 <Spinner
     android:layout_width="match_parent"
@@ -36,7 +43,9 @@
     android:layout_marginTop="15sp"
     android:prompt="@string/sp_Province"
     android:id="@+id/spProvince"/>
-
+<!-- Third Party Animation used: Lottie Animation File - "Loading Dots In Yellow",
+Siyuan Qio,
+https://lottiefiles.com/9619-loading-dots-in-yellow -->
       <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,6 +55,7 @@
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
        />
+    <!--END-->
 
 
     <ScrollView

@@ -58,6 +58,8 @@
     <string name="tv_confirmed">Confirmed Cases</string>
     <string name="covid_title_menu"> CASES OF COVID-19</string>
     <string name="all_covid_title_menu"> COVID-19 CASES </string>
+    <string name="long_date_pattern">dd MMM yyyy</string>
+    <string name="short_date_pattern">DD</string>
 
 
     <string name="covid_chart">CHART</string>

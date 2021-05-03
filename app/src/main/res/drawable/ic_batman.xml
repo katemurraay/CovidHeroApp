@@ -1,3 +1,4 @@
+<!-- Icon is  made by Smashicons from www.flaticon.com -->
 <vector android:height="34dp" android:viewportHeight="512"
     android:viewportWidth="512" android:width="34dp" xmlns:android="http://schemas.android.com/apk/res/android">
     <path android:fillColor="#283593" android:pathData="m503.465,503.465v-25.598c0,-31.684 -12.586,-62.07 -34.988,-84.477 -22.406,-22.402 -52.793,-34.992 -84.477,-34.992h-256c-65.98,0 -119.465,53.488 -119.465,119.469v25.598zM503.465,503.465"/>

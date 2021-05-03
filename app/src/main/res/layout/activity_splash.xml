@@ -16,7 +16,9 @@
         android:background="@drawable/bg_splash"
         tools:ignore="UselessParent">
 
-
+        <!-- Third Party Animation used: Lottie Animation File - "Nurse",
+        Bojan Mltevski,
+       https://lottiefiles.com/23562-nurse -->
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +27,7 @@
         app:lottie_loop="true"
         app:lottie_autoPlay="true"
        />
+        <!--END-->
     </RelativeLayout>
 
     <LinearLayout
@@ -39,16 +42,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/shield"
-    android:id="@+id/ivShield"
-    android:padding="20sp"/>
+            <!-- Image icon is made by Freepik from www.flaticon.com-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shield"
+                android:id="@+id/ivShield"
+                android:padding="20sp"/>
+            <!--END-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/img_hero"
+                android:textColor="@color/fab_hero"
+                android:textStyle="bold"
                 android:padding="20sp"
                 android:textSize="16sp"/>
                         </LinearLayout>
@@ -57,17 +64,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <!-- Image icon is made by Freepik from www.flaticon.com-->
         <ImageView
             android:id="@+id/ivCovid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/covid"
             android:padding="20sp"/>
+        <!--END-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/img_covid"
+            android:textStyle="bold"
+            android:textColor="@color/fab_line_chart"
             android:padding="20sp"
             android:textSize="16sp"/>
     </LinearLayout>

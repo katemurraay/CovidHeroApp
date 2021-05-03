@@ -32,7 +32,7 @@ public class CovidAdapter {
         ArrayList<String> stringArrayList = new ArrayList<>();
         ArrayList<Covid> covidArrayList = new ArrayList<>();
         try {
-            /* Code below is based on:
+            /* (2)Code below is based on:
             StackOverflow Answer to Question: "Parse JSON Array without Key in Android""
             Answered by: Bidhan
             https://stackoverflow.com/a/30586115
@@ -40,7 +40,7 @@ public class CovidAdapter {
             JSONArray itemArray=new JSONArray(covidString);
             for (int i = 0; i < itemArray.length(); i++) {
                 stringArrayList.add(itemArray.get(i).toString());
-            } //END
+            } //END (2)
 
             for(String string: stringArrayList){
                 covidArrayList.add(convertToCovidObject(string));

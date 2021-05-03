@@ -3,7 +3,7 @@ package com.kmm.a117349221ca2_parta;
 import android.util.Log;
 
 import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
-import com.squareup.okhttp.internal.http.HttpMethod;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -1,5 +1,21 @@
 package com.kmm.a117349221ca2_parta.covid;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,41 +23,22 @@ import androidx.cardview.widget.CardView;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.wifi.hotspot2.pps.HomeSp;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.kmm.a117349221ca2_parta.R;
-import com.kmm.a117349221ca2_parta.heroCRUD.Hero;
-import com.kmm.a117349221ca2_parta.heroCRUD.createHero.CreateDialogFragment;
 import com.kmm.a117349221ca2_parta.heroCRUD.readHero.HeroActivity;
 import com.kmm.a117349221ca2_parta.utils.IConstants;
 import com.kmm.a117349221ca2_parta.utils.NetworkReceiver;
 import com.kmm.a117349221ca2_parta.utils.NetworkService;
 import com.kmm.a117349221ca2_parta.utils.ShowToast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.Locale;
 
 public class CovidActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Covid>>, View.OnClickListener, AdapterView.OnItemSelectedListener {
-    TextView  tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered;
+    TextView  tvNumDeaths, tvNumConfirmed, tvNumActive, tvNumRecovered, tvDate;
     NetworkReceiver receiver;
     ScrollView scrollView;
     String strProvince;
@@ -54,6 +51,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
     boolean isFabVisible;
     boolean isProvinceVisible;
     LottieAnimationView lottieLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +63,7 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         tvNumDeaths = findViewById(R.id.tvNoDeathCases);
         tvNumConfirmed = findViewById(R.id.tvNoConfirmedCases);
         tvNumRecovered = findViewById(R.id.tvNoRecoveredCases);
+        tvDate = findViewById(R.id.tvCurrentDate);
         cvActive = findViewById(R.id.cvActive);
         cvConfirmed = findViewById(R.id.cvConfirmed);
         cvRecovered = findViewById(R.id.cvRecovered);
@@ -97,6 +96,11 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
         cvActive.setOnClickListener(this);
         cvRecovered.setOnClickListener(this);
         cvConfirmed.setOnClickListener(this);
+
+        String pattern = getResources().getString(R.string.long_date_pattern);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        String date = simpleDateFormat.format(new Date());
+        tvDate.setText(date);
     }
 
 
@@ -135,11 +139,16 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                 spProvince.setVisibility(View.GONE);
                 index = 0;
             }
+            String numDeaths =String.format(Locale.getDefault(),"%,d", data.get(index).getDeaths());
+            String numActive =String.format(Locale.getDefault(),"%,d", data.get(index).getActive());
+            String numConfirmed =String.format(Locale.getDefault(),"%,d", data.get(index).getConfirmed());
+            String numRecovered =String.format(Locale.getDefault(),"%,d", data.get(index).getRecovered());
 
-            tvNumDeaths.setText(String.valueOf(data.get(index).getDeaths()));
-            tvNumActive.setText(String.valueOf(data.get(index).getActive()));
-            tvNumRecovered.setText(String.valueOf(data.get(index).getRecovered()));
-            tvNumConfirmed.setText(String.valueOf(data.get(index).getConfirmed()));
+
+            tvNumDeaths.setText(numDeaths);
+            tvNumActive.setText(numActive);
+            tvNumRecovered.setText(numRecovered);
+            tvNumConfirmed.setText(numConfirmed);
 
 
         }
@@ -213,20 +222,20 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
                     fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_hide));
                     isFabVisible =true;
                 } else{
-                    fabAdd.shrink();
-                    fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_plus));
-                    fabLayout.setVisibility(View.GONE);
-                    isFabVisible =false;
+                    hideFAB();
                 }
                 break;
             case R.id.fabHero:
                 Intent heroIntent = new Intent(getApplicationContext(), HeroActivity.class);
+                hideFAB();
                 startActivity(heroIntent);
+
                 finish();
                 overridePendingTransition(0, 0);
                 break;
             case R.id.fabAllChart:
                 intent.putExtra(getResources().getString(R.string.covid_chart), getResources().getString(R.string.chart_all));
+                hideFAB();
                 startActivity(intent);
                 overridePendingTransition(0, 0);
                 break;
@@ -234,6 +243,14 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
 
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void hideFAB(){
+        fabAdd.shrink();
+        fabAdd.setIcon(getResources().getDrawable(R.drawable.ic_plus));
+        fabLayout.setVisibility(View.GONE);
+        isFabVisible =false;
     }
 
     @Override
@@ -260,11 +277,16 @@ public class CovidActivity extends AppCompatActivity implements LoaderManager.Lo
 
             }
         } else if (parent.getId() == R.id.spProvince){
+            String numDeaths =String.format(Locale.getDefault(),"%,d", currentCases.get(position).getDeaths());
+            String numActive =String.format(Locale.getDefault(),"%,d", currentCases.get(position).getActive());
+            String numConfirmed =String.format(Locale.getDefault(),"%,d", currentCases.get(position).getConfirmed());
+            String numRecovered =String.format(Locale.getDefault(),"%,d", currentCases.get(position).getRecovered());
 
-            tvNumDeaths.setText(String.valueOf(currentCases.get(position).getDeaths()));
-            tvNumActive.setText(String.valueOf(currentCases.get(position).getActive()));
-            tvNumRecovered.setText(String.valueOf(currentCases.get(position).getRecovered()));
-            tvNumConfirmed.setText(String.valueOf(currentCases.get(position).getConfirmed()));
+
+            tvNumDeaths.setText(numDeaths);
+            tvNumActive.setText(numActive);
+            tvNumRecovered.setText(numRecovered);
+            tvNumConfirmed.setText(numConfirmed);
         }
 
     }

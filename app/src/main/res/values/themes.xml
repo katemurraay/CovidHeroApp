@@ -14,11 +14,16 @@
         <!-- Customize your theme here. -->
 
     </style>
+    <!--Code below is based on Web Article: "Custom Rating Bar in Android",
+Akshay Rana,
+https://www.akshayrana.in/2020/06/how-to-customize-rating-bar-in-android.html -->
+
     <style name="CustomRatingBarStyle" parent="Widget.AppCompat.RatingBar">
         <item name="android:progressDrawable">@drawable/custom_rating_bar</item>
         <item name="android:minHeight">15dip</item>
         <item name="android:maxHeight">47dip</item>
     </style>
+    <!--END-->
     <style name="CustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
 
